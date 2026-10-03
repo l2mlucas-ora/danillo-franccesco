@@ -2,6 +2,8 @@
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var I18N = window.DFI18N;
+  var t = I18N.t, pick = I18N.pick;
   var $ = function (s, ctx) { return (ctx || document).querySelector(s); };
   var $$ = function (s, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(s)); };
 
@@ -46,13 +48,13 @@
   function closeMenu() {
     nav.classList.remove("menu-open");
     toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Abrir menu");
+    toggle.setAttribute("aria-label", t("aria.menuOpen"));
   }
   toggle.addEventListener("click", function () {
     var open = !nav.classList.contains("menu-open");
     nav.classList.toggle("menu-open", open);
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+    toggle.setAttribute("aria-label", t(open ? "aria.menuClose" : "aria.menuOpen"));
   });
   $$("#navLinks a").forEach(function (a) { a.addEventListener("click", closeMenu); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
@@ -70,7 +72,6 @@
   }
 
   /* ---------- Filmografia ---------- */
-  var TYPE_LABEL = { tv: "TV & Streaming", cinema: "Cinema", direcao: "Direção", teatro: "Teatro" };
   var TONE = {
     tv: "rgba(212,174,58,.14)",
     cinema: "rgba(236,230,218,.10)",
@@ -78,57 +79,79 @@
     teatro: "rgba(120,90,170,.18)"
   };
   var grid = $("#worksGrid");
-  (window.WORKS || []).forEach(function (w) {
-    var clickable = !!(w.youtube || w.link);
-    var el = document.createElement(clickable ? "button" : "article");
-    el.className = "card reveal";
-    el.dataset.type = w.type;
-    el.style.setProperty("--tone", TONE[w.type] || TONE.tv);
-    if (clickable) {
-      el.type = "button";
-      el.setAttribute("data-clickable", "");
-      el.setAttribute("aria-label", (w.youtube ? "Assistir trailer: " : "Abrir: ") + w.title);
-    }
-    el.innerHTML =
-      '<div class="card-top"><span class="card-type">' + esc(TYPE_LABEL[w.type] || "") + "</span><span>" + esc(w.year) + "</span></div>" +
-      '<h3 class="card-title">' + esc(w.title) + "</h3>" +
-      '<p class="card-role">' + esc(w.role) + "</p>" +
-      '<p class="card-outlet">' + esc(w.outlet) + "</p>" +
-      (w.youtube ? '<span class="card-play"><i>▶</i>Trailer</span>' :
-        w.link ? '<span class="card-play"><i>→</i>Saiba mais</span>' : "");
-    if (clickable) {
-      el.addEventListener("click", function () {
-        if (w.youtube) openVideo(w.youtube, w.title, el);
-        else if (w.link.charAt(0) === "#") document.querySelector(w.link).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-        else window.open(w.link, "_blank", "noopener");
-      });
-    }
-    grid.appendChild(el);
-  });
+  var vgrid = $("#videoGrid");
+  var currentFilter = "all";
+
+  function renderWorks() {
+    grid.innerHTML = "";
+    (window.WORKS || []).forEach(function (w) {
+      var title = pick(w.title);
+      var clickable = !!(w.youtube || w.link);
+      var el = document.createElement(clickable ? "button" : "article");
+      el.className = "card reveal in";
+      el.dataset.type = w.type;
+      el.style.setProperty("--tone", TONE[w.type] || TONE.tv);
+      if (currentFilter !== "all" && w.type !== currentFilter) el.classList.add("hide");
+      if (clickable) {
+        el.type = "button";
+        el.setAttribute("data-clickable", "");
+        el.setAttribute("aria-label", t(w.youtube ? "aria.watch" : "aria.open") + title);
+      }
+      el.innerHTML =
+        '<div class="card-top"><span class="card-type">' + esc(t("type." + w.type)) + "</span><span>" + esc(w.year) + "</span></div>" +
+        '<h3 class="card-title">' + esc(title) + "</h3>" +
+        '<p class="card-role">' + esc(pick(w.role)) + "</p>" +
+        '<p class="card-outlet">' + esc(pick(w.outlet)) + "</p>" +
+        (w.youtube ? '<span class="card-play"><i>▶</i>' + esc(t("card.trailer")) + "</span>" :
+          w.link ? '<span class="card-play"><i>→</i>' + esc(t("card.more")) + "</span>" : "");
+      if (clickable) {
+        el.addEventListener("click", function () {
+          if (w.youtube) openVideo(w.youtube, title, el);
+          else if (w.link.charAt(0) === "#") document.querySelector(w.link).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+          else window.open(w.link, "_blank", "noopener");
+        });
+      }
+      grid.appendChild(el);
+    });
+  }
 
   $$(".filter").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var f = btn.dataset.filter;
+      currentFilter = btn.dataset.filter;
       $$(".filter").forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
       $$(".card", grid).forEach(function (c) {
-        c.classList.toggle("hide", f !== "all" && c.dataset.type !== f);
+        c.classList.toggle("hide", currentFilter !== "all" && c.dataset.type !== currentFilter);
       });
     });
   });
 
   /* ---------- Vídeos ---------- */
-  var vgrid = $("#videoGrid");
-  (window.WORKS || []).filter(function (w) { return w.youtube; }).forEach(function (w) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "video reveal";
-    b.setAttribute("aria-label", "Assistir: " + w.title);
-    b.innerHTML =
-      '<img loading="lazy" alt="" src="https://i.ytimg.com/vi/' + esc(w.youtube) + '/hqdefault.jpg">' +
-      '<span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4v16l13-8z"/></svg></span>' +
-      '<span class="video-label"><small>' + esc(TYPE_LABEL[w.type]) + " · " + esc(w.year) + "</small><b>" + esc(w.title) + "</b></span>";
-    b.addEventListener("click", function () { openVideo(w.youtube, w.title, b); });
-    vgrid.appendChild(b);
+  function renderVideos() {
+    vgrid.innerHTML = "";
+    (window.WORKS || []).filter(function (w) { return w.youtube; }).forEach(function (w) {
+      var title = pick(w.title);
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "video reveal in";
+      b.setAttribute("aria-label", t("aria.watch") + title);
+      b.innerHTML =
+        '<img loading="lazy" alt="" src="https://i.ytimg.com/vi/' + esc(w.youtube) + '/hqdefault.jpg">' +
+        '<span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4v16l13-8z"/></svg></span>' +
+        '<span class="video-label"><small>' + esc(t("type." + w.type)) + " · " + esc(w.year) + "</small><b>" + esc(title) + "</b></span>";
+      b.addEventListener("click", function () { openVideo(w.youtube, title, b); });
+      vgrid.appendChild(b);
+    });
+  }
+
+  renderWorks();
+  renderVideos();
+  /* No primeiro carregamento os cards entram com animação */
+  $$(".card, .video").forEach(function (el) { el.classList.remove("in"); });
+
+  I18N.onChange(function () {
+    renderWorks();
+    renderVideos();
+    toggle.setAttribute("aria-label", t(nav.classList.contains("menu-open") ? "aria.menuClose" : "aria.menuOpen"));
   });
 
   /* ---------- Modal de vídeo ---------- */

@@ -5,16 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Danillo Franccesco · Ator, Diretor e Produtor</title>
   <meta name="description" content="Danillo Franccesco: ator, diretor e produtor. Paulo, o Apóstolo, A Vida de Jó (Record), Sintonia (Netflix), Um Broto Legal e o longa premiado Não Peça Desculpas. Publicidade, projetos e contato.">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)">
   <link rel="canonical" href="/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
   <meta property="og:type" content="profile">
   <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="es_ES">
   <meta property="og:title" content="Danillo Franccesco · Ator, Diretor e Produtor">
   <meta property="og:description" content="Netflix, Record, SBT e cinema. Diretor do longa premiado Não Peça Desculpas. Publicidade e projetos audiovisuais.">
   <meta property="og:image" content="assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Aplica o tema salvo antes de pintar a tela (evita piscar) -->
+  <script>try{var t=localStorage.getItem("df-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +46,7 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">Pular para o conteúdo</a>
+  <a class="skip" href="#main" data-i18n="skip">Pular para o conteúdo</a>
 
   <!-- Contagem de película -->
   <div class="leader" id="leader" aria-hidden="true">
@@ -48,27 +54,44 @@
       <div class="leader-sweep"></div>
       <span class="leader-num" id="leaderNum">3</span>
     </div>
-    <button class="leader-skip" type="button" tabindex="-1">Pular</button>
+    <button class="leader-skip" type="button" tabindex="-1" data-i18n="leader.skip">Pular</button>
   </div>
 
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
-    <a class="brand" href="#topo" aria-label="Danillo Franccesco, início">
+    <a class="brand" href="#topo" aria-label="Danillo Franccesco">
       <span class="brand-mark">DF</span><span>Franccesco</span>
     </a>
-    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
-      <span></span><span></span>
-    </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#trabalhos">Trabalhos</a></li>
-      <li><a href="#videos">Vídeos</a></li>
-      <li><a href="#publicidade">Publicidade</a></li>
-      <li><a href="#casting">Casting</a></li>
-      <li><a href="#contato" class="cta-link">Contato</a></li>
+      <li><a href="#sobre" data-i18n="nav.sobre">Sobre</a></li>
+      <li><a href="#trabalhos" data-i18n="nav.trabalhos">Trabalhos</a></li>
+      <li><a href="#videos" data-i18n="nav.videos">Vídeos</a></li>
+      <li><a href="#publicidade" data-i18n="nav.publicidade">Publicidade</a></li>
+      <li><a href="#casting" data-i18n="nav.casting">Casting</a></li>
+      <li><a href="#contato" class="cta-link" data-i18n="nav.contato">Contato</a></li>
     </ul>
+    <div class="nav-right">
+      <details class="lang">
+        <summary aria-label="Idioma" data-i18n-attr="aria-label:aria.lang" title="Idioma / Language / Idioma">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7.6" stroke="currentColor" stroke-width="1.5"/><path d="M2.6 10h14.8M10 2.4c2.1 2.2 3.1 4.7 3.1 7.6s-1 5.4-3.1 7.6c-2.1-2.2-3.1-4.7-3.1-7.6S7.9 4.6 10 2.4Z" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="lang-current">PT</span>
+        </summary>
+        <ul class="lang-menu">
+          <li><button type="button" data-lang="pt" lang="pt-BR"><b>PT</b>Português</button></li>
+          <li><button type="button" data-lang="en" lang="en"><b>EN</b>English</button></li>
+          <li><button type="button" data-lang="es" lang="es"><b>ES</b>Español</button></li>
+        </ul>
+      </details>
+      <button class="theme-toggle" type="button" aria-label="Alternar dia / noite" title="Alternar dia / noite" data-i18n-attr="aria-label:aria.theme; title:aria.theme">
+        <svg class="ic-sun" width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="3.6" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.6v2.2M10 16.2v2.2M18.4 10h-2.2M3.8 10H1.6M15.9 4.1l-1.6 1.6M5.7 14.3l-1.6 1.6M15.9 15.9l-1.6-1.6M5.7 5.7 4.1 4.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="ic-moon" width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.5 12.4A7.2 7.2 0 0 1 7.6 3.5a7.2 7.2 0 1 0 8.9 8.9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
   </header>
 
   <main id="main">
@@ -81,11 +104,11 @@
         <p class="hero-tag">Netflix · Record · SBT · Cinema</p>
         <h1 class="hero-name"><span><i>Danillo</i></span><span><i>Franccesco</i></span></h1>
         <ul class="hero-roles">
-          <li>Ator</li><li>Diretor</li><li>Produtor</li>
+          <li data-i18n="role.ator">Ator</li><li data-i18n="role.diretor">Diretor</li><li data-i18n="role.produtor">Produtor</li>
         </ul>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="#trabalhos">Ver trabalhos</a>
-          <button class="btn" type="button" data-chat="publicidade">Publicidade &amp; marcas</button>
+          <a class="btn btn-gold" href="#trabalhos" data-i18n="hero.cta1">Ver trabalhos</a>
+          <button class="btn" type="button" data-chat="publicidade" data-i18n="hero.cta2">Publicidade &amp; marcas</button>
         </div>
       </div>
       <p class="hero-meta" aria-hidden="true">Extrema MG · São Paulo · Rio de Janeiro</p>
@@ -103,11 +126,11 @@
       <div class="wrap">
         <div class="about-grid">
           <div class="about-text reveal">
-            <p class="kicker">Cena 01 · Sobre</p>
-            <h2 class="title">Uma vida inteira <em>em cena</em></h2>
-            <p class="lead">Nascido em Extrema (MG), Danillo Franccesco sobe ao palco desde criança e hoje transita entre São Paulo e Rio de Janeiro, na frente e atrás das câmeras.</p>
-            <p>No teatro, esteve em <strong>Além da Vida</strong>, espetáculo baseado em obras psicografadas por Chico Xavier que percorreu o Brasil e passou de um milhão de espectadores. Na TV, viveu o vilão Flito em <strong>Patrulha Salvadora</strong> (SBT), MC Rod dos Piseiros em <strong>Sintonia</strong> (Netflix), Festo em <strong>Paulo, o Apóstolo</strong> e o Filho de Deus em <strong>A Vida de Jó</strong> (Record).</p>
-            <p>No cinema, interpretou Eduardo, marido de Celly Campello, em <strong>Um Broto Legal</strong>. Como diretor e produtor, assina o longa <strong>Não Peça Desculpas</strong>, premiado no Brasil e no exterior, além de documentários e curtas pela MED Produções.</p>
+            <p class="kicker" data-i18n="about.kicker">Cena 01 · Sobre</p>
+            <h2 class="title" data-i18n="about.title">Uma vida inteira <em>em cena</em></h2>
+            <p class="lead" data-i18n="about.lead">Nascido em Extrema (MG), Danillo Franccesco sobe ao palco desde criança e hoje transita entre São Paulo e Rio de Janeiro, na frente e atrás das câmeras.</p>
+            <p data-i18n="about.p1">No teatro, esteve em <strong>Além da Vida</strong>, espetáculo baseado em obras psicografadas por Chico Xavier que percorreu o Brasil e passou de um milhão de espectadores. Na TV, viveu o vilão Flito em <strong>Patrulha Salvadora</strong> (SBT), MC Rod dos Piseiros em <strong>Sintonia</strong> (Netflix), Festo em <strong>Paulo, o Apóstolo</strong> e o Filho de Deus em <strong>A Vida de Jó</strong> (Record).</p>
+            <p data-i18n="about.p2">No cinema, interpretou Eduardo, marido de Celly Campello, em <strong>Um Broto Legal</strong>. Como diretor e produtor, assina o longa <strong>Não Peça Desculpas</strong>, premiado no Brasil e no exterior, além de documentários e curtas pela MED Produções.</p>
           </div>
           <figure class="portrait reveal" style="margin:0">
             <div class="perfs l"></div><div class="perfs r"></div>
@@ -117,10 +140,10 @@
         </div>
 
         <div class="stats reveal">
-          <div class="stat"><b data-count="15">15+</b><span>anos de carreira</span></div>
-          <div class="stat"><b>1M+</b><span>espectadores no teatro</span></div>
-          <div class="stat"><b data-count="11">11</b><span>prêmios como diretor</span></div>
-          <div class="stat"><b data-count="8">8</b><span>filmes dirigidos</span></div>
+          <div class="stat"><b data-count="15">15+</b><span data-i18n="stat.1">anos de carreira</span></div>
+          <div class="stat"><b>1M+</b><span data-i18n="stat.2">espectadores no teatro</span></div>
+          <div class="stat"><b data-count="11">11</b><span data-i18n="stat.3">prêmios como diretor</span></div>
+          <div class="stat"><b data-count="8">8</b><span data-i18n="stat.4">filmes dirigidos</span></div>
         </div>
       </div>
     </section>
@@ -130,15 +153,15 @@
       <div class="wrap">
         <div class="works-head reveal">
           <div>
-            <p class="kicker">Cena 02 · Filmografia</p>
-            <h2 class="title">Trabalhos</h2>
+            <p class="kicker" data-i18n="works.kicker">Cena 02 · Filmografia</p>
+            <h2 class="title" data-i18n="works.title">Trabalhos</h2>
           </div>
-          <div class="filters" role="group" aria-label="Filtrar trabalhos">
-            <button class="filter" type="button" data-filter="all" aria-pressed="true">Todos</button>
-            <button class="filter" type="button" data-filter="tv" aria-pressed="false">TV &amp; Streaming</button>
-            <button class="filter" type="button" data-filter="cinema" aria-pressed="false">Cinema</button>
-            <button class="filter" type="button" data-filter="direcao" aria-pressed="false">Direção</button>
-            <button class="filter" type="button" data-filter="teatro" aria-pressed="false">Teatro</button>
+          <div class="filters" role="group" aria-label="Filtrar trabalhos" data-i18n-attr="aria-label:aria.filter">
+            <button class="filter" type="button" data-filter="all" aria-pressed="true" data-i18n="filter.all">Todos</button>
+            <button class="filter" type="button" data-filter="tv" aria-pressed="false" data-i18n="filter.tv">TV &amp; Streaming</button>
+            <button class="filter" type="button" data-filter="cinema" aria-pressed="false" data-i18n="filter.cinema">Cinema</button>
+            <button class="filter" type="button" data-filter="direcao" aria-pressed="false" data-i18n="filter.direcao">Direção</button>
+            <button class="filter" type="button" data-filter="teatro" aria-pressed="false" data-i18n="filter.teatro">Teatro</button>
           </div>
         </div>
         <div class="works-grid" id="worksGrid" aria-live="polite"></div>
@@ -150,31 +173,31 @@
       <div class="feature-bg" aria-hidden="true"></div>
       <div class="wrap feature-grid">
         <div class="reveal">
-          <p class="kicker">Cena 03 · Direção e produção</p>
+          <p class="kicker" data-i18n="feature.kicker">Cena 03 · Direção e produção</p>
           <h2 class="title">Não Peça <em>Desculpas</em></h2>
-          <p class="lead">Um drama familiar sobre abuso e violência doméstica, filmado em Extrema (MG) com elenco e equipe quase inteiramente da cidade.</p>
-          <p class="muted">Escrito para provocar reflexão sobre a violência contra a mulher no Brasil, o longa de 80 minutos marcou a estreia de Danillo Franccesco na direção de longas e conquistou festivais no Brasil e no exterior.</p>
-          <div class="laurels" aria-label="Prêmios">
+          <p class="lead" data-i18n="feature.lead">Um drama familiar sobre abuso e violência doméstica, filmado em Extrema (MG) com elenco e equipe quase inteiramente da cidade.</p>
+          <p class="muted" data-i18n="feature.p">Escrito para provocar reflexão sobre a violência contra a mulher no Brasil, o longa de 80 minutos marcou a estreia de Danillo Franccesco na direção de longas e conquistou festivais no Brasil e no exterior.</p>
+          <div class="laurels">
             <div class="laurel">
               <svg viewBox="0 0 34 64" aria-hidden="true"><use href="#i-laurel"/></svg>
-              <div><b>6</b><small>prêmios<br>internacionais</small></div>
+              <div><b>6</b><small data-i18n="laurel.intl">prêmios<br>internacionais</small></div>
               <svg class="flip" viewBox="0 0 34 64" aria-hidden="true"><use href="#i-laurel"/></svg>
             </div>
             <div class="laurel">
               <svg viewBox="0 0 34 64" aria-hidden="true"><use href="#i-laurel"/></svg>
-              <div><b>5</b><small>prêmios<br>nacionais</small></div>
+              <div><b>5</b><small data-i18n="laurel.nat">prêmios<br>nacionais</small></div>
               <svg class="flip" viewBox="0 0 34 64" aria-hidden="true"><use href="#i-laurel"/></svg>
             </div>
           </div>
           <div class="hero-actions">
-            <button class="btn btn-gold" type="button" data-chat="governo">Exibição + debate</button>
-            <button class="btn" type="button" data-chat="projeto">Falar sobre projetos</button>
+            <button class="btn btn-gold" type="button" data-chat="governo" data-i18n="feature.cta1">Exibição + debate</button>
+            <button class="btn" type="button" data-chat="projeto" data-i18n="feature.cta2">Falar sobre projetos</button>
           </div>
         </div>
         <div class="feature-poster reveal" aria-hidden="true">
-          <small>Um filme de Danillo Franccesco</small>
+          <small data-i18n="poster.by">Um filme de Danillo Franccesco</small>
           <strong>Não Peça Desculpas</strong>
-          <span>Longa-metragem · 2024 · 80 min</span>
+          <span data-i18n="poster.meta">Longa-metragem · 2024 · 80 min</span>
         </div>
       </div>
     </section>
@@ -183,8 +206,8 @@
     <section class="videos" id="videos">
       <div class="wrap">
         <div class="reveal">
-          <p class="kicker">Cena 04 · Em movimento</p>
-          <h2 class="title">Vídeos</h2>
+          <p class="kicker" data-i18n="videos.kicker">Cena 04 · Em movimento</p>
+          <h2 class="title" data-i18n="videos.title">Vídeos</h2>
         </div>
         <div class="video-grid" id="videoGrid"></div>
       </div>
@@ -195,30 +218,30 @@
       <div class="wrap">
         <div class="ads-head reveal">
           <div>
-            <p class="kicker">Cena 05 · Marcas &amp; publicidade</p>
-            <h2 class="title">Sua marca <em>no quadro certo</em></h2>
+            <p class="kicker" data-i18n="ads.kicker">Cena 05 · Marcas &amp; publicidade</p>
+            <h2 class="title" data-i18n="ads.title">Sua marca <em>no quadro certo</em></h2>
           </div>
-          <p>Um rosto de Netflix, Record e cinema que também dirige e produz. Danillo pode estrelar a sua campanha ou entregar a peça completa, do roteiro à finalização, pela MED Produções.</p>
+          <p data-i18n="ads.intro">Um rosto de Netflix, Record e cinema que também dirige e produz. Danillo pode estrelar a sua campanha ou entregar a peça completa, do roteiro à finalização, pela MED Produções.</p>
         </div>
 
         <div class="ads-grid reveal">
-          <article class="ad"><span class="ad-n">01</span><h3>Comerciais</h3><p>Filmes para TV, cinema e digital com atuação de quem vive o set há mais de 15 anos.</p></article>
-          <article class="ad"><span class="ad-n">02</span><h3>Publi no Instagram</h3><p>Reels, Stories e posts com linguagem cinematográfica para a audiência de @danillofranccesco.</p></article>
-          <article class="ad"><span class="ad-n">03</span><h3>Embaixador de marca</h3><p>Parcerias de longo prazo para marcas de esporte, bem-estar, moda e lifestyle.</p></article>
-          <article class="ad"><span class="ad-n">04</span><h3>Eventos</h3><p>Presença, apresentação e ativações em lançamentos, feiras e festivais.</p></article>
-          <article class="ad"><span class="ad-n">05</span><h3>Institucional</h3><p>Filmes para empresas, prefeituras e órgãos públicos, com direção e produção próprias.</p></article>
-          <article class="ad"><span class="ad-n">06</span><h3>Impacto social</h3><p>Campanhas de conscientização, como no premiado Não Peça Desculpas, sobre violência doméstica.</p></article>
+          <article class="ad"><span class="ad-n">01</span><h3 data-i18n="ad1.t">Comerciais</h3><p data-i18n="ad1.p">Filmes para TV, cinema e digital com atuação de quem vive o set há mais de 15 anos.</p></article>
+          <article class="ad"><span class="ad-n">02</span><h3 data-i18n="ad2.t">Publi no Instagram</h3><p data-i18n="ad2.p">Reels, Stories e posts com linguagem cinematográfica para a audiência de @danillofranccesco.</p></article>
+          <article class="ad"><span class="ad-n">03</span><h3 data-i18n="ad3.t">Embaixador de marca</h3><p data-i18n="ad3.p">Parcerias de longo prazo para marcas de esporte, bem-estar, moda e lifestyle.</p></article>
+          <article class="ad"><span class="ad-n">04</span><h3 data-i18n="ad4.t">Eventos</h3><p data-i18n="ad4.p">Presença, apresentação e ativações em lançamentos, feiras e festivais.</p></article>
+          <article class="ad"><span class="ad-n">05</span><h3 data-i18n="ad5.t">Institucional</h3><p data-i18n="ad5.p">Filmes para empresas, prefeituras e órgãos públicos, com direção e produção próprias.</p></article>
+          <article class="ad"><span class="ad-n">06</span><h3 data-i18n="ad6.t">Impacto social</h3><p data-i18n="ad6.p">Campanhas de conscientização, como no premiado Não Peça Desculpas, sobre violência doméstica.</p></article>
         </div>
 
         <div class="ads-why reveal">
-          <div class="why"><b>Ator + diretor + produtor</b><span>Uma conversa, uma equipe, a peça pronta.</span></div>
-          <div class="why"><b>Atleta de verdade</b><span>Ex-jogador de futebol profissional e praticante de mais de 30 modalidades.</span></div>
-          <div class="why"><b>Pronto para o mundo</b><span>Inglês fluente, espanhol básico. Atende todo o Brasil.</span></div>
+          <div class="why"><b data-i18n="why1.b">Ator + diretor + produtor</b><span data-i18n="why1.s">Uma conversa, uma equipe, a peça pronta.</span></div>
+          <div class="why"><b data-i18n="why2.b">Atleta de verdade</b><span data-i18n="why2.s">Ex-jogador de futebol profissional e praticante de mais de 30 modalidades.</span></div>
+          <div class="why"><b data-i18n="why3.b">Pronto para o mundo</b><span data-i18n="why3.s">Inglês fluente, espanhol básico. Atende todo o Brasil.</span></div>
         </div>
 
         <div class="ads-cta reveal">
-          <p>Vamos colocar a sua marca em cena?</p>
-          <button class="btn btn-gold" type="button" data-chat="publicidade">Pedir orçamento</button>
+          <p data-i18n="ads.ctaText">Vamos colocar a sua marca em cena?</p>
+          <button class="btn btn-gold" type="button" data-chat="publicidade" data-i18n="ads.ctaBtn">Pedir orçamento</button>
         </div>
       </div>
     </section>
@@ -226,13 +249,13 @@
     <!-- 7. Instagram -->
     <section class="insta" id="instagram">
       <div class="wrap reveal">
-        <p class="kicker">Cena 06 · Bastidores</p>
+        <p class="kicker" data-i18n="insta.kicker">Cena 06 · Bastidores</p>
         <a class="insta-handle" href="https://www.instagram.com/danillofranccesco/" target="_blank" rel="noopener">@danillofranccesco</a>
         <div class="insta-frames" aria-hidden="true">
-          <span>Set</span><span>Reels</span><span>Making of</span><span>Estreias</span><span>Vida</span>
+          <span data-i18n="insta.f1">Set</span><span data-i18n="insta.f2">Reels</span><span data-i18n="insta.f3">Making of</span><span data-i18n="insta.f4">Estreias</span><span data-i18n="insta.f5">Vida</span>
         </div>
         <a class="btn btn-gold" href="https://www.instagram.com/danillofranccesco/" target="_blank" rel="noopener">
-          <svg aria-hidden="true"><use href="#i-insta"/></svg> Seguir no Instagram
+          <svg aria-hidden="true"><use href="#i-insta"/></svg> <span data-i18n="insta.btn">Seguir no Instagram</span>
         </a>
       </div>
     </section>
@@ -241,27 +264,27 @@
     <section id="casting">
       <div class="wrap">
         <div class="reveal" style="text-align:center">
-          <p class="kicker" style="justify-content:center">Cena 07 · Para produtores de elenco</p>
-          <h2 class="title">Ficha técnica</h2>
+          <p class="kicker" style="justify-content:center" data-i18n="casting.kicker">Cena 07 · Para produtores de elenco</p>
+          <h2 class="title" data-i18n="casting.title">Ficha técnica</h2>
         </div>
         <div class="slate reveal" id="slate">
           <div class="slate-top" aria-hidden="true"></div>
           <dl class="slate-body" style="margin:0">
-            <div class="slate-cell"><dt><small>Nome</small></dt><dd style="margin:0"><b>Danillo Franccesco</b></dd></div>
-            <div class="slate-cell"><dt><small>Altura</small></dt><dd style="margin:0"><b>1,86 m</b></dd></div>
-            <div class="slate-cell"><dt><small>Peso</small></dt><dd style="margin:0"><b>88 kg</b></dd></div>
-            <div class="slate-cell"><dt><small>Olhos</small></dt><dd style="margin:0"><b>Castanhos</b></dd></div>
-            <div class="slate-cell"><dt><small>Cabelo</small></dt><dd style="margin:0"><b>Castanho, curto · barba</b></dd></div>
-            <div class="slate-cell"><dt><small>Biotipo</small></dt><dd style="margin:0"><b>Atlético</b></dd></div>
-            <div class="slate-cell"><dt><small>Idiomas</small></dt><dd style="margin:0"><b>Inglês fluente · Espanhol básico</b></dd></div>
-            <div class="slate-cell"><dt><small>Base</small></dt><dd style="margin:0"><b>São Paulo · Rio de Janeiro</b></dd></div>
-            <div class="slate-cell"><dt><small>Formação</small></dt><dd style="margin:0"><b>Pós em Cinema · ILAC/Unimesp</b></dd></div>
-            <div class="slate-cell wide"><dt><small>Habilidades</small></dt><dd style="margin:0"><b>Futebol profissional · artes marciais · esportes aquáticos · dança · direção e filmmaking</b></dd></div>
-            <div class="slate-cell wide"><dt><small>Agência</small></dt><dd style="margin:0"><b>Nossa Sra. do Casting</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.name">Nome</small></dt><dd style="margin:0"><b>Danillo Franccesco</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.height">Altura</small></dt><dd style="margin:0"><b>1,86 m</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.weight">Peso</small></dt><dd style="margin:0"><b>88 kg</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.eyes">Olhos</small></dt><dd style="margin:0"><b data-i18n="slate.eyesV">Castanhos</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.hair">Cabelo</small></dt><dd style="margin:0"><b data-i18n="slate.hairV">Castanho, curto · barba</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.build">Biotipo</small></dt><dd style="margin:0"><b data-i18n="slate.buildV">Atlético</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.langs">Idiomas</small></dt><dd style="margin:0"><b data-i18n="slate.langsV">Inglês fluente · Espanhol básico</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.base">Base</small></dt><dd style="margin:0"><b>São Paulo · Rio de Janeiro</b></dd></div>
+            <div class="slate-cell"><dt><small data-i18n="slate.edu">Formação</small></dt><dd style="margin:0"><b data-i18n="slate.eduV">Pós em Cinema · ILAC/Unimesp</b></dd></div>
+            <div class="slate-cell wide"><dt><small data-i18n="slate.skills">Habilidades</small></dt><dd style="margin:0"><b data-i18n="slate.skillsV">Futebol profissional · artes marciais · esportes aquáticos · dança · direção e filmmaking</b></dd></div>
+            <div class="slate-cell wide"><dt><small data-i18n="slate.agency">Agência</small></dt><dd style="margin:0"><b>Nossa Sra. do Casting</b></dd></div>
           </dl>
         </div>
         <div class="slate-foot reveal">
-          <a class="btn" href="https://elencodigital.com.br/DanilloFranccesco" target="_blank" rel="noopener">Perfil no Elenco Digital</a>
+          <a class="btn" href="https://elencodigital.com.br/DanilloFranccesco" target="_blank" rel="noopener" data-i18n="casting.elenco">Perfil no Elenco Digital</a>
           <a class="btn" href="https://www.imdb.com/name/nm10563514/" target="_blank" rel="noopener">IMDb</a>
         </div>
       </div>
@@ -271,32 +294,35 @@
     <section class="credits" id="contato">
       <div class="wrap">
         <div class="reveal">
-          <p class="kicker">Créditos finais</p>
-          <h2 class="title">Contato</h2>
+          <p class="kicker" data-i18n="credits.kicker">Créditos finais</p>
+          <h2 class="title" data-i18n="credits.title">Contato</h2>
         </div>
         <dl class="credits-roll reveal">
-          <div class="credit"><dt>Atuação</dt><dd>Danillo Franccesco</dd></div>
-          <div class="credit"><dt>Direção</dt><dd>Danillo Franccesco</dd></div>
-          <div class="credit"><dt>Produção</dt><dd>MED Produções</dd></div>
-          <div class="credit"><dt>Agência</dt><dd>Nossa Sra. do Casting</dd></div>
+          <div class="credit"><dt data-i18n="credit.acting">Atuação</dt><dd>Danillo Franccesco</dd></div>
+          <div class="credit"><dt data-i18n="credit.directing">Direção</dt><dd>Danillo Franccesco</dd></div>
+          <div class="credit"><dt data-i18n="credit.production">Produção</dt><dd>MED Produções</dd></div>
+          <div class="credit"><dt data-i18n="credit.agency">Agência</dt><dd>Nossa Sra. do Casting</dd></div>
           <div class="credit"><dt>E-mail</dt><dd><a href="mailto:med.producoes@hotmail.com">med.producoes@hotmail.com</a></dd></div>
           <div class="credit"><dt>WhatsApp</dt><dd><a href="https://wa.me/5511948000631" target="_blank" rel="noopener">(11) 94800-0631</a></dd></div>
         </dl>
         <div class="contact-actions reveal">
           <button class="btn btn-gold" type="button" data-chat="">
-            <svg aria-hidden="true"><use href="#i-chat"/></svg> Falar com a equipe
+            <svg aria-hidden="true"><use href="#i-chat"/></svg> <span data-i18n="contact.chat">Falar com a equipe</span>
           </button>
           <a class="btn" href="https://wa.me/5511948000631" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg> WhatsApp</a>
           <a class="btn" href="mailto:med.producoes@hotmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg> E-mail</a>
           <a class="btn" href="https://www.instagram.com/danillofranccesco/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-insta"/></svg> Instagram</a>
         </div>
-        <p class="fin reveal">Fim.</p>
+        <p class="fin reveal" data-i18n="fin">Fim.</p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    © <span id="year">2026</span> Danillo Franccesco · <a href="links.html">Links</a>
+    © <span id="year">2026</span> Danillo Franccesco · <a href="links.html" data-i18n="footer.links">Links</a>
+    <a class="dev-credit" href="https://extremaconsultoria.com.br/" target="_blank" rel="noopener" title="Desenvolvido por Extrema Consultoria" data-i18n-attr="title:dev.title">
+      <img src="assets/extrema-consultoria.svg" width="28" height="28" alt="Desenvolvido por Extrema Consultoria" loading="lazy" decoding="async" data-i18n-attr="alt:dev.title">
+    </a>
   </footer>
 
   <!-- Modal de vídeo -->
@@ -304,7 +330,7 @@
     <div class="modal-box">
       <div class="modal-bar">
         <b id="modalTitle">Trailer</b>
-        <button class="modal-close" type="button" id="modalClose" aria-label="Fechar vídeo">×</button>
+        <button class="modal-close" type="button" id="modalClose" aria-label="Fechar vídeo" data-i18n-attr="aria-label:aria.closeVideo">×</button>
       </div>
       <div class="modal-frame" id="modalFrame"></div>
     </div>
@@ -319,6 +345,7 @@
     <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></symbol>
   </svg>
 
+  <script src="js/i18n.js"></script>
   <script src="data/works.js"></script>
   <script src="data/assistant-flows.js"></script>
   <script src="js/main.js"></script>

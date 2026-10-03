@@ -1,14 +1,21 @@
 /*
  * Assistente de atendimento roteirizado (sem IA).
- * Os textos e perguntas ficam em data/assistant-flows.js.
+ * Os textos e perguntas ficam em data/assistant-flows.js (PT / EN / ES).
  * Qualquer botão com data-chat="<fluxo>" abre o assistente nesse fluxo
  * (data-chat="" abre no menu inicial).
  */
 (function () {
   "use strict";
 
-  var CFG = window.ASSISTANT;
-  if (!CFG) return;
+  var DATA = window.ASSISTANT;
+  if (!DATA) return;
+
+  var I18N = window.DFI18N;
+  function L() {
+    var lang = I18N ? I18N.lang() : "pt";
+    return DATA.i18n[lang] || DATA.i18n.pt;
+  }
+  function ui(key) { return L().ui[key]; }
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var DELAY = reduceMotion ? 0 : 550;
@@ -27,8 +34,6 @@
   fab.type = "button";
   fab.className = "chat-fab";
   fab.setAttribute("aria-haspopup", "dialog");
-  fab.innerHTML = ICON.chat + '<span class="fab-label">Fale com a equipe</span>';
-  fab.setAttribute("aria-label", "Abrir atendimento");
 
   var panel = document.createElement("div");
   panel.className = "chat";
@@ -38,9 +43,9 @@
   panel.innerHTML =
     '<div class="chat-head">' +
       '<span class="chat-avatar" aria-hidden="true">DF</span>' +
-      '<div><b id="chatTitle">Equipe Danillo Franccesco</b><small>Responde pelo WhatsApp</small></div>' +
-      '<button class="chat-icon-btn" type="button" data-act="restart" aria-label="Recomeçar conversa" title="Recomeçar">' + ICON.restart + "</button>" +
-      '<button class="chat-icon-btn" type="button" data-act="close" aria-label="Fechar atendimento" title="Fechar">' + ICON.close + "</button>" +
+      '<div><b id="chatTitle"></b><small class="chat-status"></small></div>' +
+      '<button class="chat-icon-btn" type="button" data-act="restart">' + ICON.restart + "</button>" +
+      '<button class="chat-icon-btn" type="button" data-act="close">' + ICON.close + "</button>" +
     "</div>" +
     '<div class="chat-log" aria-live="polite"></div>' +
     '<div class="chat-actions"></div>';
@@ -50,6 +55,17 @@
 
   var log = panel.querySelector(".chat-log");
   var actions = panel.querySelector(".chat-actions");
+
+  function paintChrome() {
+    fab.innerHTML = ICON.chat + '<span class="fab-label">' + ui("fab") + "</span>";
+    fab.setAttribute("aria-label", ui("fabAria"));
+    panel.querySelector("#chatTitle").textContent = ui("title");
+    panel.querySelector(".chat-status").textContent = ui("status");
+    var r = panel.querySelector('[data-act="restart"]'), c = panel.querySelector('[data-act="close"]');
+    r.setAttribute("aria-label", ui("restart")); r.title = ui("restart");
+    c.setAttribute("aria-label", ui("close")); c.title = ui("close");
+  }
+  paintChrome();
 
   /* ---------- Estado ---------- */
   var state = { flowId: null, queue: [], answers: [], run: 0 };
@@ -112,7 +128,7 @@
     state.flowId = null;
     state.queue = [];
     state.answers = [];
-    showChips(CFG.menu.map(function (item) {
+    showChips(L().menu.map(function (item) {
       return chip(item.label, item.highlight ? "primary" : "", function () {
         addMsg(item.label, "user");
         startFlow(item.id);
@@ -124,7 +140,7 @@
     var run = ++state.run;
     log.innerHTML = "";
     clearActions();
-    return CFG.greeting.reduce(function (p, line) {
+    return L().greeting.reduce(function (p, line) {
       return p.then(function () { return botSay(line, run); });
     }, Promise.resolve()).then(function () {
       if (run === state.run) showMenu();
@@ -132,7 +148,7 @@
   }
 
   function startFlow(id) {
-    var flow = CFG.flows[id];
+    var flow = L().flows[id];
     if (!flow) { showMenu(); return; }
     state.flowId = id;
     state.answers = [];
@@ -151,12 +167,13 @@
       return;
     }
     if (step.goto) {
+      var label = step.label || ui("cont");
       showChips([
-        chip(step.label || "Continuar", "primary", function () {
-          addMsg(textOf(step.label || "Continuar"), "user");
+        chip(label, "primary", function () {
+          addMsg(textOf(label), "user");
           startFlow(step.goto);
         }),
-        chip("Voltar ao menu", "ghost", backToMenu)
+        chip(ui("back"), "ghost", backToMenu)
       ]);
       return;
     }
@@ -176,7 +193,7 @@
   function record(step, value) {
     addMsg(value, "user");
     if (step.key) state.answers.push([step.key, value]);
-    var flow = CFG.flows[state.flowId];
+    var flow = L().flows[state.flowId];
     if (flow && flow.branches && flow.branches[value]) {
       state.queue = flow.branches[value].slice().concat(state.queue);
     }
@@ -197,13 +214,13 @@
     var input = document.createElement("input");
     input.type = "text";
     input.maxLength = 300;
-    input.placeholder = step.input || "Digite aqui";
+    input.placeholder = step.input || ui("typeHere");
     input.setAttribute("aria-label", step.ask);
     input.autocomplete = "off";
     var send = document.createElement("button");
     send.type = "submit";
     send.innerHTML = ICON.send;
-    send.setAttribute("aria-label", "Enviar resposta");
+    send.setAttribute("aria-label", ui("sendAnswer"));
     form.appendChild(input);
     form.appendChild(send);
     form.addEventListener("submit", function (e) {
@@ -217,7 +234,7 @@
       var skip = document.createElement("button");
       skip.type = "button";
       skip.className = "chat-skip";
-      skip.textContent = "Pular esta pergunta";
+      skip.textContent = ui("skip");
       skip.addEventListener("click", function () { clearActions(); next(); });
       actions.appendChild(skip);
     }
@@ -225,30 +242,30 @@
   }
 
   function backToMenu() {
-    addMsg("Voltar ao menu", "user");
+    addMsg(ui("back"), "user");
     var run = ++state.run;
-    botSay("Claro! Em que mais podemos ajudar?", run).then(function () { if (run === state.run) showMenu(); });
+    botSay(ui("backReply"), run).then(function () { if (run === state.run) showMenu(); });
   }
 
   function endWith(kind) {
     if (kind === "links") {
       showChips([
-        chip("Instagram", "primary", function () { window.open("https://www.instagram.com/danillofranccesco/", "_blank", "noopener"); }),
-        chip("Ver trabalhos", "", function () {
+        chip(ui("instagram"), "primary", function () { window.open("https://www.instagram.com/danillofranccesco/", "_blank", "noopener"); }),
+        chip(ui("seeWork"), "", function () {
           if (document.getElementById("trabalhos")) { close(); location.hash = "#trabalhos"; }
           else location.href = "index.html#trabalhos";
         }),
-        chip("Voltar ao menu", "ghost", backToMenu)
+        chip(ui("back"), "ghost", backToMenu)
       ]);
     } else {
-      showChips([chip("Voltar ao menu", "ghost", backToMenu)]);
+      showChips([chip(ui("back"), "ghost", backToMenu)]);
     }
   }
 
   /* ---------- Resumo e envio ---------- */
   function buildMessage() {
-    var flow = CFG.flows[state.flowId];
-    var lines = ["Olá! Vim pelo site do Danillo Franccesco.", "", "*Assunto: " + flow.title + "*"];
+    var flow = L().flows[state.flowId];
+    var lines = [ui("msgHello"), "", "*" + ui("msgSubject") + ": " + flow.title + "*"];
     state.answers.forEach(function (a) { lines.push("• " + a[0] + ": " + a[1]); });
     return lines.join("\n");
   }
@@ -256,9 +273,9 @@
   function finish() {
     if (!state.answers.length) { showMenu(); return; }
     var run = state.run;
-    botSay("Perfeito! Confira o resumo e envie para a equipe:", run).then(function () {
+    botSay(ui("summaryIntro"), run).then(function () {
       if (run !== state.run) return;
-      var flow = CFG.flows[state.flowId];
+      var flow = L().flows[state.flowId];
       var box = document.createElement("div");
       box.className = "summary";
       var h = document.createElement("h4");
@@ -275,29 +292,29 @@
       scrollDown();
 
       var msg = buildMessage();
-      var wa = "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent(msg);
-      var mail = "mailto:" + CFG.email +
-        "?subject=" + encodeURIComponent("Site · " + flow.title) +
+      var wa = "https://wa.me/" + DATA.whatsapp + "?text=" + encodeURIComponent(msg);
+      var mail = "mailto:" + DATA.email +
+        "?subject=" + encodeURIComponent(ui("mailSubject") + " · " + flow.title) +
         "&body=" + encodeURIComponent(msg.replace(/\*/g, ""));
 
       showChips([
-        chip(ICON.wa + "Enviar pelo WhatsApp", "primary", function () {
+        chip(ICON.wa + ui("sendWa"), "primary", function () {
           window.open(wa, "_blank", "noopener");
           afterSend();
         }),
-        chip(ICON.mail + "Enviar por e-mail", "", function () {
+        chip(ICON.mail + ui("sendMail"), "", function () {
           location.href = mail;
           afterSend();
         }),
-        chip("Recomeçar", "ghost", function () { greet(); })
+        chip(ui("again"), "ghost", function () { greet(); })
       ]);
     });
   }
 
   function afterSend() {
     var run = ++state.run;
-    botSay("Obrigado! 🎬 A equipe responde o mais breve possível.", run).then(function () {
-      if (run === state.run) showChips([chip("Voltar ao menu", "ghost", backToMenu)]);
+    botSay(ui("thanks"), run).then(function () {
+      if (run === state.run) showChips([chip(ui("back"), "ghost", backToMenu)]);
     });
   }
 
@@ -308,14 +325,15 @@
     lastFocus = document.activeElement;
     panel.classList.add("open");
     fab.classList.add("hidden");
-    if (flowId && CFG.flows[flowId]) {
+    var flows = L().flows;
+    if (flowId && flows[flowId]) {
       state.run++;
       log.innerHTML = "";
       started = true;
       var run = state.run;
-      botSay(CFG.greeting[0], run).then(function () {
+      botSay(L().greeting[0], run).then(function () {
         if (run !== state.run) return;
-        addMsg(CFG.flows[flowId].title, "user");
+        addMsg(flows[flowId].title, "user");
         startFlow(flowId);
       });
     } else if (!started) {
@@ -349,6 +367,15 @@
     e.preventDefault();
     open(t.getAttribute("data-chat"));
   });
+
+  /* Trocar o idioma recomeça a conversa no novo idioma */
+  if (I18N) {
+    I18N.onChange(function () {
+      paintChrome();
+      if (panel.classList.contains("open")) greet();
+      else { started = false; state.run++; log.innerHTML = ""; clearActions(); }
+    });
+  }
 
   window.DFAssistant = { open: open, close: close };
 })();

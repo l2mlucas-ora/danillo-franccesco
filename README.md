@@ -9,7 +9,13 @@ Site estático (HTML, CSS e JS puros, sem build) com estética de cinema noir.
 
 Nas duas páginas há o **assistente de atendimento** (botão "Fale com a equipe"): fluxos guiados para Publicidade, Projetos, Governo, Imprensa, Fãs e Dúvidas. No fim, o visitante envia o resumo pronto para o WhatsApp **(11) 94800-0631** ou por e-mail. Não há servidor nem banco de dados: custo zero.
 
+**Idiomas (PT / EN / ES):** seletor com globo no topo das duas páginas. O idioma do navegador é detectado na primeira visita e a escolha fica salva. **Dia / noite:** botão sol/lua ao lado (padrão noite; segue o sistema se o visitante não escolher), no mesmo padrão do site da Target. No rodapé, o ícone da **Extrema Consultoria** leva a extremaconsultoria.com.br.
+
 ## Como editar
+
+- **Traduções do site:** `js/i18n.js`. O português fica no próprio HTML (atributo `data-i18n="chave"`); inglês e espanhol ficam no dicionário com a mesma chave.
+- **Filmografia em 3 idiomas:** em `data/works.js`, os campos `title`, `role` e `outlet` aceitam `{ pt, en, es }`.
+- **Assistente em 3 idiomas:** `data/assistant-flows.js` tem um bloco por idioma (`pt`, `en`, `es`).
 
 - **Adicionar/editar trabalhos:** `data/works.js`. Copie um bloco e mude os campos. Se tiver trailer no YouTube, cole só o ID (o trecho depois de `watch?v=`); ele aparece sozinho na filmografia e na seção Vídeos.
 - **Textos e perguntas do assistente:** `data/assistant-flows.js`.
