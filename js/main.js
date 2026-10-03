@@ -32,7 +32,7 @@
       n -= 1;
       if (n <= 0) { clearInterval(timer); endLeader(); return; }
       num.textContent = n;
-    }, 1300);
+    }, 2000);
     leader.addEventListener("click", function () { clearInterval(timer); endLeader(); });
     document.addEventListener("keydown", function once() {
       clearInterval(timer); endLeader(); document.removeEventListener("keydown", once);
@@ -88,7 +88,7 @@
       var title = pick(w.title);
       var clickable = !!(w.youtube || w.link);
       var el = document.createElement(clickable ? "button" : "article");
-      el.className = "card reveal in";
+      el.className = "card reveal in" + (w.image ? " has-img" : "");
       el.dataset.type = w.type;
       el.style.setProperty("--tone", TONE[w.type] || TONE.tv);
       if (currentFilter !== "all" && w.type !== currentFilter) el.classList.add("hide");
@@ -98,6 +98,7 @@
         el.setAttribute("aria-label", t(w.youtube ? "aria.watch" : "aria.open") + title);
       }
       el.innerHTML =
+        (w.image ? '<img class="card-bg" src="' + esc(w.image) + '" alt="" loading="lazy" decoding="async">' : "") +
         '<div class="card-top"><span class="card-type">' + esc(t("type." + w.type)) + "</span><span>" + esc(w.year) + "</span></div>" +
         '<h3 class="card-title">' + esc(title) + "</h3>" +
         '<p class="card-role">' + esc(pick(w.role)) + "</p>" +

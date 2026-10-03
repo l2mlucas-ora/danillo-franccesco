@@ -5,6 +5,7 @@
  *  - title, role, outlet: texto simples ou { pt, en, es } para traduzir
  *  - youtube: ID do vídeo no YouTube (o trecho depois de "watch?v=") ou "" se não houver
  *  - link: página externa (opcional)
+ *  - image: foto de fundo do card (opcional), ex.: "assets/minha-foto.jpg"
  */
 window.WORKS = [
   {
@@ -13,6 +14,7 @@ window.WORKS = [
     type: "tv",
     role: { pt: "Filho de Deus", en: "Son of God", es: "Hijo de Dios" },
     outlet: "Record",
+    image: "assets/filho-de-deus-close.jpg",
     youtube: "",
     link: ""
   },
