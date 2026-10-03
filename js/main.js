@@ -32,7 +32,7 @@
       n -= 1;
       if (n <= 0) { clearInterval(timer); endLeader(); return; }
       num.textContent = n;
-    }, 650);
+    }, 1300);
     leader.addEventListener("click", function () { clearInterval(timer); endLeader(); });
     document.addEventListener("keydown", function once() {
       clearInterval(timer); endLeader(); document.removeEventListener("keydown", once);

@@ -114,7 +114,7 @@ button { font: inherit; color: inherit; }
 .leader {
   position: fixed; inset: 0; z-index: 300; background: #0d0c0b; color: var(--film-ink);
   display: grid; place-items: center; cursor: pointer;
-  transition: opacity .6s var(--ease), visibility .6s;
+  transition: opacity 1s var(--ease), visibility 1s;
 }
 .leader.done { opacity: 0; visibility: hidden; }
 .leader-ring {
@@ -130,7 +130,7 @@ button { font: inherit; color: inherit; }
 .leader-sweep {
   position: absolute; inset: 0; border-radius: 50%;
   background: conic-gradient(rgba(236,230,218,.18) 0deg, transparent 0deg);
-  animation: sweep .7s linear infinite;
+  animation: sweep 1.3s linear infinite;
 }
 @keyframes sweep {
   from { background: conic-gradient(rgba(236,230,218,.18) 0deg, transparent 0deg); }
@@ -278,13 +278,19 @@ section { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 .hero-tag {
   font-size: 12px; letter-spacing: .4em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px;
 }
+/* Título de cartaz: "Danillo" cursivo dourado sobre "FRANCCESCO" em caixa alta cheia */
 .hero-name {
-  font-family: var(--display); font-weight: 400; margin: 0; line-height: .82;
-  font-size: clamp(76px, 17vw, 250px); letter-spacing: -.005em;
+  font-family: var(--display); font-weight: 400; margin: 0; line-height: .88;
+  font-size: clamp(64px, 11.5vw, 156px); letter-spacing: .015em;
 }
 .hero-name span { display: block; overflow: hidden; }
 .hero-name span > i { display: block; font-style: normal; transform: translateY(105%); transition: transform 1.2s var(--ease); }
-.hero-name span:nth-child(2) > i { transition-delay: .12s; color: transparent; -webkit-text-stroke: 1.5px var(--text); }
+.hero-name span:nth-child(1) { padding-bottom: .06em; }
+.hero-name span:nth-child(1) > i {
+  font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none;
+  font-size: .56em; line-height: 1; letter-spacing: 0; color: var(--gold); margin-left: .04em;
+}
+.hero-name span:nth-child(2) > i { transition-delay: .12s; }
 .loaded .hero-name span > i { transform: none; }
 .hero-roles {
   display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 30px 0 34px; padding: 0; list-style: none;
