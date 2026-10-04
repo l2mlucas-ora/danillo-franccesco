@@ -116,6 +116,54 @@
     });
   }
 
+  /* ---------- Carrossel em "Todos"; grade completa ao escolher uma categoria ---------- */
+  var railNav = $("#railNav");
+  var railTimer = null, railPaused = false, railVisible = false;
+
+  function isRail() { return currentFilter === "all"; }
+
+  function railStep(dir) {
+    var card = $(".card:not(.hide)", grid);
+    if (!card) return;
+    var step = card.getBoundingClientRect().width + parseFloat(getComputedStyle(grid).columnGap || 20);
+    var max = grid.scrollWidth - grid.clientWidth;
+    var behavior = reduceMotion ? "auto" : "smooth";
+    if (dir > 0 && grid.scrollLeft >= max - 4) grid.scrollTo({ left: 0, behavior: behavior });
+    else if (dir < 0 && grid.scrollLeft <= 4) grid.scrollTo({ left: max, behavior: behavior });
+    else grid.scrollBy({ left: dir * step, behavior: behavior });
+  }
+
+  function railTick() {
+    if (isRail() && !railPaused && railVisible && !document.hidden) railStep(1);
+  }
+
+  function setLayout() {
+    var rail = isRail();
+    grid.classList.toggle("is-rail", rail);
+    railNav.hidden = !rail;
+    grid.scrollLeft = 0;
+    clearInterval(railTimer);
+    if (rail && !reduceMotion) railTimer = setInterval(railTick, 3000);
+  }
+
+  /* Pausa enquanto o visitante interage com o carrossel */
+  ["mouseenter", "focusin", "touchstart"].forEach(function (ev) {
+    grid.addEventListener(ev, function () { railPaused = true; }, { passive: true });
+  });
+  ["mouseleave", "focusout"].forEach(function (ev) {
+    grid.addEventListener(ev, function () { railPaused = false; });
+  });
+  grid.addEventListener("touchend", function () { setTimeout(function () { railPaused = false; }, 4000); }, { passive: true });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) { railVisible = entries[0].isIntersecting; }).observe(grid);
+  } else {
+    railVisible = true;
+  }
+
+  $("#railPrev").addEventListener("click", function () { railStep(-1); });
+  $("#railNext").addEventListener("click", function () { railStep(1); });
+
   $$(".filter").forEach(function (btn) {
     btn.addEventListener("click", function () {
       currentFilter = btn.dataset.filter;
@@ -123,6 +171,7 @@
       $$(".card", grid).forEach(function (c) {
         c.classList.toggle("hide", currentFilter !== "all" && c.dataset.type !== currentFilter);
       });
+      setLayout();
     });
   });
 
@@ -146,8 +195,10 @@
 
   renderWorks();
   renderVideos();
-  /* No primeiro carregamento os cards entram com animação */
-  $$(".card, .video").forEach(function (el) { el.classList.remove("in"); });
+  setLayout();
+  /* No primeiro carregamento os vídeos entram com animação
+     (os cards do carrossel ficam visíveis: os que estão fora da tela, na lateral, não seriam revelados) */
+  $$(".video").forEach(function (el) { el.classList.remove("in"); });
 
   I18N.onChange(function () {
     renderWorks();
