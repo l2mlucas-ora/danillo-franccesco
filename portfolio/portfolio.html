@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Danillo Franccesco · Portfólio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=block" rel="stylesheet">
+<style>
+  /* Portfólio em A4 · paleta noir do site · gerado em PDF pelo build.sh */
+  @page { size: A4; margin: 0; }
+  :root {
+    --bg: #0a0a0a; --bg-2: #121110; --bg-3: #1a1816;
+    --line: rgba(232, 224, 210, .14); --text: #ece6da; --muted: #a39b8d;
+    --gold: #d4ae3a; --gold-soft: rgba(212, 174, 58, .12); --red: #b3261e;
+    --display: "Bebas Neue", Impact, sans-serif;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Inter", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: #2a2a2a; }
+  body { font-family: var(--sans); color: var(--text); font-size: 9.6pt; line-height: 1.55; }
+  img { display: block; max-width: 100%; }
+
+  .page {
+    position: relative; width: 210mm; height: 297mm; overflow: hidden;
+    background: var(--bg); page-break-after: always; break-after: page;
+    padding: 20mm 18mm 22mm;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  @media screen { .page { margin: 10mm auto; box-shadow: 0 10px 40px rgba(0,0,0,.5); } }
+
+  /* Grão e vinheta */
+  .page::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: url("img/grain.png");
+  }
+  .page > * { position: relative; z-index: 1; }
+
+  /* Cabeçalho e rodapé das páginas internas */
+  .run {
+    position: absolute !important; left: 18mm; right: 18mm; bottom: 10mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 6.8pt; letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
+    border-top: .3mm solid var(--line); padding-top: 3mm;
+  }
+  .run b { color: var(--gold); font-weight: 500; }
+  .mark {
+    display: inline-grid; place-items: center; width: 9mm; height: 9mm;
+    border: .3mm solid var(--gold); color: var(--gold); font-family: var(--display); font-size: 12pt; letter-spacing: 0;
+  }
+
+  .kicker {
+    display: flex; align-items: center; gap: 4mm; margin: 0 0 4mm;
+    font-size: 7.4pt; letter-spacing: .34em; text-transform: uppercase; color: var(--gold);
+  }
+  .kicker::before { content: ""; width: 10mm; height: .3mm; background: var(--gold); }
+  h1, h2, h3 { font-weight: 400; margin: 0; }
+  .title { font-family: var(--display); font-size: 46pt; line-height: .9; letter-spacing: .01em; margin-bottom: 6mm; }
+  .title em { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: .76em; letter-spacing: 0; }
+  .lead { font-family: var(--serif); font-size: 15pt; line-height: 1.4; margin: 0 0 5mm; }
+  p { margin: 0 0 3.2mm; }
+  .muted { color: var(--muted); }
+  strong { font-weight: 600; color: var(--text); }
+  .gold { color: var(--gold); }
+
+  .tag {
+    display: inline-block; font-size: 6.6pt; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--gold); border: .25mm solid rgba(212,174,58,.5); padding: .8mm 2.4mm; border-radius: 10mm;
+  }
+  .rule { height: .3mm; background: var(--line); margin: 6mm 0; }
+
+  /* ============ CAPA ============ */
+  .cover { padding: 0; }
+  .cover-photo { position: absolute !important; top: 0; right: 0; bottom: 0; width: 72%; }
+  .cover-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 22%; filter: contrast(1.08) brightness(.92); }
+  .cover-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, var(--bg) 0%, rgba(10,10,10,.85) 22%, rgba(10,10,10,.15) 55%, rgba(10,10,10,.05) 100%),
+      linear-gradient(0deg, var(--bg) 0%, rgba(10,10,10,.6) 28%, transparent 55%);
+  }
+  .perf {
+    position: absolute !important; top: 0; bottom: 0; width: 7mm; left: 6mm;
+    background: repeating-linear-gradient(180deg, transparent 0 3.2mm, rgba(236,230,218,.14) 3.2mm 6.4mm);
+    background-size: 3mm 6.4mm; background-repeat: repeat-y; background-position: center;
+  }
+  .cover-top { position: absolute !important; top: 18mm; left: 20mm; right: 18mm; display: flex; justify-content: space-between; align-items: center; }
+  .cover-top span { font-size: 7pt; letter-spacing: .4em; text-transform: uppercase; color: var(--muted); }
+  .cover-name { position: absolute !important; left: 20mm; bottom: 40mm; }
+  .cover-name .first { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 52pt; line-height: 1; margin-left: 1mm; }
+  .cover-name .last { font-family: var(--display); font-size: 96pt; line-height: .86; letter-spacing: .015em; }
+  .cover-roles { font-family: var(--serif); font-style: italic; font-size: 17pt; color: var(--gold); margin-top: 6mm; }
+  .cover-roles i { color: var(--muted); font-style: normal; margin: 0 3mm; }
+  .cover-foot {
+    position: absolute !important; left: 20mm; right: 18mm; bottom: 16mm;
+    display: flex; justify-content: space-between; font-size: 7pt; letter-spacing: .32em; text-transform: uppercase; color: var(--muted);
+    border-top: .3mm solid var(--line); padding-top: 3.5mm;
+  }
+  .cover-foot b { color: var(--text); font-weight: 500; }
+
+  /* ============ APRESENTAÇÃO ============ */
+  .about { display: grid; grid-template-columns: 1.25fr .9fr; gap: 10mm; }
+  .about-photo { position: relative; height: 150mm; border: .3mm solid var(--line); overflow: hidden; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 20%; filter: saturate(.85) contrast(1.04); }
+  .about-photo figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 3mm 4mm;
+    display: flex; justify-content: space-between; font-size: 6.6pt; letter-spacing: .26em; text-transform: uppercase; color: var(--muted);
+    background: linear-gradient(transparent, rgba(0,0,0,.85));
+  }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 10mm; border-top: .3mm solid var(--line); }
+  .stat { padding: 5mm 3mm 0 0; }
+  .stat + .stat { padding-left: 4mm; border-left: .3mm solid var(--line); }
+  .stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 34pt; line-height: 1; color: var(--gold); }
+  .stat span { font-size: 7.6pt; color: var(--muted); }
+  .quote {
+    margin-top: 9mm; padding: 6mm 7mm; border-left: .6mm solid var(--gold); background: var(--gold-soft);
+    font-family: var(--serif); font-style: italic; font-size: 13pt; line-height: 1.4;
+  }
+
+  /* ============ TV ============ */
+  .hero-work { display: grid; grid-template-columns: 78mm 1fr; gap: 9mm; margin-bottom: 8mm; }
+  .hero-work .ph { height: 112mm; overflow: hidden; border: .3mm solid var(--line); position: relative; }
+  .hero-work .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+  .work-title { font-family: var(--display); font-size: 34pt; line-height: .92; margin: 3mm 0 2mm; }
+  .work-role { font-family: var(--serif); font-style: italic; font-size: 14pt; color: var(--gold); margin-bottom: 3mm; }
+  .work-meta { font-size: 7pt; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+  .card {
+    border: .3mm solid var(--line); background: var(--bg-2); padding: 5mm 5mm 5.5mm; position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 90% 70% at 50% 0%, var(--tone, rgba(212,174,58,.10)), transparent 70%);
+  }
+  .card > * { position: relative; }
+  .card .top { display: flex; justify-content: space-between; font-size: 6.4pt; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); margin-bottom: 5mm; }
+  .card .top b { color: var(--gold); font-weight: 500; }
+  .card h3 { font-family: var(--display); font-size: 21pt; line-height: .95; margin-bottom: 2mm; }
+  .card .role { font-family: var(--serif); font-style: italic; font-size: 11.5pt; line-height: 1.25; margin-bottom: 1.5mm; }
+  .card p { font-size: 8pt; color: var(--muted); margin: 0; }
+  .card.red { --tone: rgba(179,38,30,.22); }
+  .card.violet { --tone: rgba(120,90,170,.2); }
+  .card.white { --tone: rgba(236,230,218,.08); }
+  .card.poster { padding: 0; display: grid; grid-template-columns: 30mm 1fr; }
+  .card.poster img { width: 30mm; height: 100%; min-height: 42mm; object-fit: cover; }
+  .card.poster > div { padding: 4.5mm 4.5mm 5mm; }
+
+  /* ============ DIREÇÃO ============ */
+  .feature { display: grid; grid-template-columns: 62mm 1fr; gap: 9mm; margin-bottom: 8mm; align-items: start; }
+  .poster-big { position: relative; border: .3mm solid var(--line); box-shadow: 0 8mm 16mm rgba(0,0,0,.6); }
+  .poster-big img { width: 100%; height: auto; }
+  .laurels { display: flex; gap: 6mm; margin: 5mm 0 4mm; }
+  .laurel { display: flex; align-items: center; gap: 1mm; color: var(--gold); }
+  .laurel svg { width: 7mm; height: 13mm; }
+  .laurel svg.flip { transform: scaleX(-1); }
+  .laurel small { display: block; text-align: center; font-size: 6.4pt; letter-spacing: .2em; text-transform: uppercase; line-height: 1.5; color: var(--text); padding: 0 1mm; }
+  .link { font-size: 7.6pt; color: var(--gold); letter-spacing: .04em; }
+  .link::before { content: "▶  "; font-size: 6pt; }
+
+  /* ============ FILMOGRAFIA ============ */
+  .timeline { width: 100%; border-collapse: collapse; margin-top: 2mm; }
+  .timeline td { padding: 1.5mm 2mm; border-bottom: .25mm solid var(--line); vertical-align: top; font-size: 8.2pt; }
+  .timeline td.y { font-family: var(--display); font-size: 12pt; color: var(--gold); width: 18mm; padding-top: 1.6mm; line-height: 1.1; }
+  .timeline td.t { font-family: var(--display); font-size: 12.5pt; letter-spacing: .02em; width: 50mm; line-height: 1.1; padding-top: 1.8mm; }
+  .timeline td.r { font-family: var(--serif); font-style: italic; font-size: 10.4pt; line-height: 1.2; }
+  .timeline .o { color: var(--muted); font-size: 7pt; font-family: var(--sans); font-style: normal; }
+  .timeline td.c { width: 22mm; text-align: right; }
+  .timeline .tag { font-size: 5.6pt; padding: .5mm 1.8mm; letter-spacing: .18em; }
+
+  /* ============ PUBLICIDADE ============ */
+  .big-number { display: flex; align-items: flex-end; gap: 6mm; margin: 2mm 0 7mm; }
+  .big-number b { font-family: var(--display); font-weight: 400; font-size: 120pt; line-height: .8; color: var(--gold); }
+  .big-number span { font-family: var(--serif); font-style: italic; font-size: 18pt; line-height: 1.2; padding-bottom: 2mm; }
+  .formats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: .3mm solid var(--line); border-left: .3mm solid var(--line); }
+  .format { padding: 5mm 5mm 6mm; border-right: .3mm solid var(--line); border-bottom: .3mm solid var(--line); }
+  .format .n { font-family: var(--display); color: var(--gold); letter-spacing: .2em; font-size: 9pt; }
+  .format h3 { font-family: var(--display); font-size: 19pt; line-height: 1; margin: 2.5mm 0 2mm; }
+  .format p { font-size: 8pt; color: var(--muted); margin: 0; }
+  .whys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin: 8mm 0; }
+  .why { border-left: .5mm solid var(--gold); padding: 1mm 0 1mm 4mm; }
+  .why b { display: block; font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 13pt; margin-bottom: 1mm; }
+  .why span { font-size: 8pt; color: var(--muted); }
+  .cta {
+    display: flex; justify-content: space-between; align-items: center; gap: 6mm;
+    border: .3mm solid var(--gold); padding: 6mm 7mm; background: linear-gradient(90deg, var(--gold-soft), transparent);
+  }
+  .cta p { font-family: var(--serif); font-size: 16pt; line-height: 1.25; margin: 0; }
+  .cta span { font-size: 8pt; text-align: right; color: var(--text); line-height: 1.7; white-space: nowrap; }
+
+  /* ============ SOCIAL ============ */
+  .social { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin-bottom: 8mm; }
+  .social figure { margin: 0; border: .3mm solid var(--line); background: var(--bg-2); }
+  .social img { width: 100%; height: 34mm; object-fit: cover; filter: grayscale(.25); }
+  .social figcaption { padding: 4mm 4.5mm 5mm; }
+  .social h3 { font-family: var(--display); font-size: 16pt; line-height: 1; margin-bottom: 2mm; }
+  .social p { font-size: 7.8pt; color: var(--muted); margin: 0; }
+  .training { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }
+  .training h3 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 16pt; color: var(--gold); margin-bottom: 2.5mm; }
+  .training ul { margin: 0; padding: 0; list-style: none; }
+  .training li { padding: 2mm 0; border-bottom: .25mm solid var(--line); font-size: 8.4pt; }
+  .training li b { font-weight: 600; }
+  .training li span { color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 2mm; margin-top: 4mm; }
+
+  /* ============ FICHA TÉCNICA ============ */
+  .slate { border: .4mm solid var(--text); background: var(--bg-2); }
+  .slate-top { height: 10mm; background: repeating-linear-gradient(-45deg, var(--text) 0 6mm, var(--bg-2) 6mm 12mm); border-bottom: .4mm solid var(--text); }
+  .slate-body { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .cell { padding: 3.6mm 4.5mm; border-right: .25mm solid var(--line); border-bottom: .25mm solid var(--line); }
+  .cell:nth-child(3n) { border-right: 0; }
+  .cell.wide { grid-column: span 3; border-right: 0; }
+  .cell small { display: block; font-size: 6pt; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-bottom: 1mm; }
+  .cell b { font-weight: 500; font-size: 9.6pt; }
+  .bts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; margin-top: 7mm; }
+  .bts figure { margin: 0; position: relative; height: 92mm; overflow: hidden; border: .3mm solid var(--line); }
+  .bts img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+  .bts figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 6mm 3mm 2.5mm;
+    background: linear-gradient(transparent, rgba(0,0,0,.85)); font-family: var(--display); font-size: 11pt; letter-spacing: .08em;
+  }
+
+  /* ============ CONTATO ============ */
+  .end { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 30mm; }
+  .end .kicker::before { display: none; }
+  .credits { width: 120mm; margin: 6mm 0 12mm; }
+  .credit { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; padding: 1.8mm 0; }
+  .credit dt { text-align: right; font-size: 6.8pt; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); padding-top: 1.2mm; }
+  .credit dd { margin: 0; text-align: left; font-family: var(--serif); font-size: 13pt; }
+  .qr-row { display: flex; align-items: center; gap: 7mm; padding: 6mm 8mm; border: .3mm solid var(--gold); background: var(--gold-soft); text-align: left; }
+  .qr { width: 30mm; height: 30mm; background: #ece6da; padding: 1.5mm; }
+  .qr img { width: 100%; height: 100%; }
+  .qr-row b { display: block; font-family: var(--display); font-size: 18pt; font-weight: 400; letter-spacing: .03em; }
+  .qr-row span { font-size: 8pt; color: var(--muted); }
+  .fin { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 64pt; line-height: 1; margin-top: 16mm; }
+  .dev { position: absolute !important; bottom: 10mm; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 2.5mm; font-size: 6.4pt; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .dev img { width: 5mm; height: 5mm; border-radius: 1mm; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="laurel" viewBox="0 0 34 64"><g fill="currentColor"><path d="M30 62C14 56 4 42 4 24 4 14 7 6 12 1c-3 7-4 14-4 22 0 16 8 30 22 37z"/><ellipse cx="6" cy="14" rx="2.6" ry="6" transform="rotate(-20 6 14)"/><ellipse cx="3.5" cy="26" rx="2.6" ry="6" transform="rotate(-8 3.5 26)"/><ellipse cx="5" cy="38" rx="2.6" ry="6" transform="rotate(12 5 38)"/><ellipse cx="11" cy="49" rx="2.6" ry="6" transform="rotate(35 11 49)"/><ellipse cx="13" cy="10" rx="2.2" ry="5" transform="rotate(30 13 10)"/><ellipse cx="12" cy="22" rx="2.2" ry="5" transform="rotate(40 12 22)"/><ellipse cx="14" cy="34" rx="2.2" ry="5" transform="rotate(50 14 34)"/><ellipse cx="19" cy="45" rx="2.2" ry="5" transform="rotate(60 19 45)"/></g></symbol>
+</svg>
+
+<!-- ======================= 1. CAPA ======================= -->
+<section class="page cover">
+  <div class="cover-photo"><img src="img/retrato-pb.jpg" alt=""></div>
+  <div class="perf"></div>
+  <div class="cover-top"><span class="mark">DF</span><span>Portfólio · 2026</span></div>
+  <div class="cover-name">
+    <div class="first">Danillo</div>
+    <div class="last">Franccesco</div>
+    <div class="cover-roles">Ator <i>·</i> Diretor <i>·</i> Produtor</div>
+  </div>
+  <div class="cover-foot"><span><b>Netflix</b> · Record · SBT · Cinema · Teatro</span><span>@danillofranccesco</span></div>
+</section>
+
+<!-- ======================= 2. APRESENTAÇÃO ======================= -->
+<section class="page">
+  <div class="about">
+    <div>
+      <p class="kicker">Cena 01 · Apresentação</p>
+      <h1 class="title">Uma vida inteira <em>em cena</em></h1>
+      <p class="lead">Ator, diretor e produtor nascido em Extrema (MG), Danillo Franccesco transita entre São Paulo e Rio de Janeiro, na frente e atrás das câmeras.</p>
+      <p>Formado em atuação e direção pelo <strong>Latin American Film Institute</strong>, em parceria com a <strong>New York Film Academy</strong> (2012), complementou a formação com Fátima Toledo, Wolf Maya, Instituto Stanislavsky e workshops internacionais.</p>
+      <p>Na TV, esteve em <strong>A Vida de Jó</strong> e <strong>Paulo, o Apóstolo</strong> (Record), <strong>Sintonia</strong> (Netflix) e <strong>Patrulha Salvadora</strong> (SBT). No cinema, viveu Eduardo, marido de Celly Campello, em <strong>Um Broto Legal</strong>. No teatro, rodou o Brasil por três anos com <strong>Além da Vida</strong>, uma das peças mais assistidas do país.</p>
+      <p>Como diretor e produtor, assina o longa <strong>Não Peça Desculpas</strong>, sobre violência contra a mulher, além de documentários e curtas pela MED Produções. Desde 2013, forma novos artistas em workshops de cinema e leva sessões a céu aberto a bairros que nunca tiveram uma tela grande.</p>
+    </div>
+    <figure class="about-photo" style="margin:0">
+      <img src="img/ensaio.jpg" alt="">
+      <figcaption><span>Take 01</span><span class="gold">Extrema · SP · RJ</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>60+</b><span>publicidades em TV e internet</span></div>
+    <div class="stat"><b>25+</b><span>obras em cinema, TV e teatro</span></div>
+    <div class="stat"><b>1M+</b><span>espectadores com Além da Vida</span></div>
+    <div class="stat"><b>2013</b><span>formando artistas em workshops</span></div>
+  </div>
+
+  <div class="quote">Três longas-metragens, três documentários, um média, oito curtas, uma série, duas webséries, duas novelas, seis peças de teatro e mais de sessenta publicidades.</div>
+
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>02</b></div>
+</section>
+
+<!-- ======================= 3. TV E STREAMING ======================= -->
+<section class="page">
+  <p class="kicker">Cena 02 · TV e streaming</p>
+  <h2 class="title">Na tela <em>de milhões</em></h2>
+
+  <div class="hero-work">
+    <div class="ph"><img src="img/filho-de-deus-figurino.jpg" alt=""></div>
+    <div>
+      <span class="tag">Novela · Record · 2025</span>
+      <h3 class="work-title">A Vida de Jó</h3>
+      <div class="work-role">Filho de Deus, o arcanjo Samuel</div>
+      <p class="muted">Na superprodução bíblica da Record, Danillo dá vida a um dos Filhos de Deus, o arcanjo Samuel: figura de luz e presença serena no embate entre o bem e o mal que atravessa a história de Jó.</p>
+      <div class="rule"></div>
+      <span class="tag">Novela · Record · Disney+ · 2025</span>
+      <h3 class="work-title" style="font-size:26pt">Paulo, o Apóstolo</h3>
+      <div class="work-role">Festo, governador da Judeia</div>
+      <p class="muted">O governador romano da província da Judeia, autoridade diante da qual Paulo é levado a julgamento.</p>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><div class="top"><b>Netflix</b><span>2022</span></div><h3>Sintonia</h3><div class="role">MC Rod dos Piseiros</div><p>Participação na 3ª temporada da série original Netflix.</p></div>
+    <div class="card white"><div class="top"><b>SBT</b><span>2014</span></div><h3>Patrulha Salvadora</h3><div class="role">Flito, o vilão do amor</div><p>Série infantojuvenil, 2ª temporada.</p></div>
+    <div class="card violet"><div class="top"><b>Webséries</b><span>2017–18</span></div><h3>Quatro Projeções · O Lar de Todas as Cores</h3><p>Protagonista Ênio (8 episódios) e Lucas, na websérie com mais de 1 milhão de views.</p></div>
+  </div>
+
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>03</b></div>
+</section>
+
+<!-- ======================= 4. DIREÇÃO ======================= -->
+<section class="page" style="background: radial-gradient(ellipse 70% 50% at 85% 25%, rgba(179,38,30,.18), transparent 70%), var(--bg);">
+  <p class="kicker">Cena 03 · Direção e produção</p>
+  <h2 class="title">Atrás <em>das câmeras</em></h2>
+
+  <div class="feature">
+    <div class="poster-big"><img src="../assets/poster-nao-peca-desculpas.jpg" alt=""></div>
+    <div>
+      <span class="tag">Longa-metragem · 80 min · 2024</span>
+      <h3 class="work-title" style="font-size:40pt">Não Peça Desculpas</h3>
+      <div class="work-role">Produção executiva e direção</div>
+      <p>Um drama familiar sobre abuso, preconceito e violência contra a mulher, filmado em Extrema (MG) com elenco e equipe quase inteiramente da cidade.</p>
+      <p class="muted">Escrito para provocar reflexão sobre a violência contra a mulher no Brasil, o longa marcou a estreia de Danillo na direção de longas e foi premiado e indicado em festivais nacionais e internacionais, inclusive a Melhor Filme.</p>
+      <div class="laurels">
+        <div class="laurel"><svg viewBox="0 0 34 64"><use href="#laurel"/></svg><small>Festivais<br>internacionais</small><svg class="flip" viewBox="0 0 34 64"><use href="#laurel"/></svg></div>
+        <div class="laurel"><svg viewBox="0 0 34 64"><use href="#laurel"/></svg><small>Festivais<br>nacionais</small><svg class="flip" viewBox="0 0 34 64"><use href="#laurel"/></svg></div>
+      </div>
+      <div class="link">Trailer: youtu.be/vDbXZfq8WDA</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card poster"><img src="../assets/poster-desaparecidos.jpg" alt=""><div><div class="top"><b>Curta</b><span>2023</span></div><h3>Desaparecidos</h3><p>Produção e direção. O sequestro de jovens para tráfico de órgãos e exploração sexual.</p></div></div>
+    <div class="card poster"><img src="../assets/poster-cinema-no-santuario.jpg" alt="" style="object-position: 50% 40%"><div><div class="top"><b>Documentário</b><span>2024</span></div><h3>Cinema no Santuário</h3><p>Pedra Bela e Suas Tradições. Produção executiva e direção, exibido em praça pública.</p></div></div>
+    <div class="card red"><div class="top"><b>Curta · romance</b><span>2025</span></div><h3>Ponto Final</h3><p>Produção executiva e direção, com grande elenco e equipe.</p></div>
+    <div class="card"><div class="top"><b>Curta</b><span>2021</span></div><h3>Eu, Nós, Você!</h3><p>Jovens sobreviventes de um apocalipse. Mais de 50 mil visualizações na primeira semana.</p></div>
+  </div>
+
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>04</b></div>
+</section>
+
+<!-- ======================= 5. CINEMA E TEATRO ======================= -->
+<section class="page">
+  <p class="kicker">Cena 04 · Cinema e teatro</p>
+  <h2 class="title">Do set <em>ao palco</em></h2>
+
+  <div class="card white" style="padding:7mm 7mm 7.5mm; margin-bottom:5mm">
+    <div class="top"><b>Longa-metragem · Pandora Filmes · Prime Video</b><span>2022</span></div>
+    <h3 style="font-size:32pt">Um Broto Legal</h3>
+    <div class="role" style="font-size:14pt; color:var(--gold)">Eduardo, marido de Celly Campello</div>
+    <p style="font-size:8.6pt">A cinebiografia da cantora que trouxe o rock para o Brasil, dirigida por Luiz Alberto Pereira. Danillo vive Eduardo, o marido por quem Celly deixou a carreira no auge. Trailer: youtu.be/62ZXEwH0SQE</p>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:9mm">
+    <div class="card"><div class="top"><b>Longa · suspense</b><span>2015</span></div><h3>Offline: O Filme</h3><div class="role">Atuação e produção</div><p>Direção de Tristan Aronovich.</p></div>
+    <div class="card red"><div class="top"><b>Curta · suspense</b><span>2015</span></div><h3>Dissonante</h3><div class="role">Henrique</div><p>Suspense sobre abuso e violência contra a mulher.</p></div>
+    <div class="card"><div class="top"><b>Média-metragem</b><span>2013</span></div><h3>Laudo 864</h3><div class="role">José</div><p>Um jovem que fica paraplégico após um acidente de moto.</p></div>
+    <div class="card white"><div class="top"><b>Curta</b><span>2012</span></div><h3>Antebellum</h3><div class="role">Fernando</div><p>Direção de Edu Diux e Andrei Alan.</p></div>
+  </div>
+
+  <div class="grid-3" style="grid-template-columns: 1fr 1.25fr 1fr">
+    <div class="card violet"><div class="top"><b>Turnê nacional</b><span>2014–17</span></div><h3>Além da Vida</h3><div class="role">Obra psicografada por Chico Xavier</div><p>Direção de Renato Prieto. Cerca de 1 milhão de espectadores em quase 3 anos de turnê. Também em Nosso Lar.</p></div>
+    <div class="card poster" style="grid-template-columns: 24mm 1fr"><img src="../assets/poster-jardim-ilusao.jpg" alt="" style="width:24mm"><div><div class="top"><b>Teatro</b><span>2012–14</span></div><h3>Jardim Ilusão</h3><p>Luiz, em adaptação de Arthur Miller. 2 anos em cartaz em SP e Festival de Curitiba 2014.</p></div></div>
+    <div class="card violet"><div class="top"><b>Teatro</b><span>2016</span></div><h3>As Centenárias</h3><div class="role">Direção, produção e atuação</div><p>Texto de Newton Moreno. Um ano em cartaz em Extrema (MG).</p></div>
+  </div>
+
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>05</b></div>
+</section>
+
+<!-- ======================= 6. FILMOGRAFIA ======================= -->
+<section class="page">
+  <p class="kicker">Cena 05 · Filmografia</p>
+  <h2 class="title" style="margin-bottom:3mm">Trabalhos <em>em ordem</em></h2>
+  <table class="timeline">
+    <tr><td class="y">2025</td><td class="t">A Vida de Jó</td><td class="r">Filho de Deus, arcanjo Samuel<div class="o">Novela · Record</div></td><td class="c"><span class="tag">TV</span></td></tr>
+    <tr><td class="y">2025</td><td class="t">Paulo, o Apóstolo</td><td class="r">Festo, governador da Judeia<div class="o">Novela · Record · Disney+</div></td><td class="c"><span class="tag">TV</span></td></tr>
+    <tr><td class="y">2025</td><td class="t">Ponto Final</td><td class="r">Produção executiva e direção<div class="o">Curta-metragem</div></td><td class="c"><span class="tag">Direção</span></td></tr>
+    <tr><td class="y">2024</td><td class="t">Não Peça Desculpas</td><td class="r">Produção executiva e direção<div class="o">Longa-metragem · festivais nacionais e internacionais</div></td><td class="c"><span class="tag">Direção</span></td></tr>
+    <tr><td class="y">2024</td><td class="t">Cinema no Santuário</td><td class="r">Produção executiva e direção<div class="o">Documentário · Pedra Bela (SP)</div></td><td class="c"><span class="tag">Direção</span></td></tr>
+    <tr><td class="y">2023</td><td class="t">Desaparecidos</td><td class="r">Produção e direção<div class="o">Curta-metragem</div></td><td class="c"><span class="tag">Direção</span></td></tr>
+    <tr><td class="y">2022</td><td class="t">Um Broto Legal</td><td class="r">Eduardo<div class="o">Longa-metragem · Pandora Filmes · Prime Video</div></td><td class="c"><span class="tag">Cinema</span></td></tr>
+    <tr><td class="y">2022</td><td class="t">Sintonia</td><td class="r">MC Rod dos Piseiros<div class="o">Série · Netflix · 3ª temporada</div></td><td class="c"><span class="tag">TV</span></td></tr>
+    <tr><td class="y">2021</td><td class="t">Eu, Nós, Você!</td><td class="r">Produção e direção<div class="o">Curta-metragem</div></td><td class="c"><span class="tag">Direção</span></td></tr>
+    <tr><td class="y">2018</td><td class="t">Quatro Projeções</td><td class="r">Ênio (protagonista)<div class="o">Websérie · 8 episódios</div></td><td class="c"><span class="tag">Web</span></td></tr>
+    <tr><td class="y">2017</td><td class="t">O Lar de Todas as Cores</td><td class="r">Lucas<div class="o">Websérie · +1 milhão de views</div></td><td class="c"><span class="tag">Web</span></td></tr>
+    <tr><td class="y">2016</td><td class="t">As Centenárias</td><td class="r">Direção, produção e atuação<div class="o">Teatro · texto de Newton Moreno</div></td><td class="c"><span class="tag">Teatro</span></td></tr>
+    <tr><td class="y">2015</td><td class="t">Offline: O Filme</td><td class="r">Atuação e produção<div class="o">Longa-metragem · dir. Tristan Aronovich</div></td><td class="c"><span class="tag">Cinema</span></td></tr>
+    <tr><td class="y">2015</td><td class="t">Dissonante</td><td class="r">Henrique<div class="o">Curta-metragem</div></td><td class="c"><span class="tag">Cinema</span></td></tr>
+    <tr><td class="y">2014–17</td><td class="t">Além da Vida</td><td class="r">Elenco<div class="o">Teatro · dir. Renato Prieto · turnê nacional</div></td><td class="c"><span class="tag">Teatro</span></td></tr>
+    <tr><td class="y">2014</td><td class="t">Patrulha Salvadora</td><td class="r">Flito, o vilão do amor<div class="o">Série · SBT · 2ª temporada</div></td><td class="c"><span class="tag">TV</span></td></tr>
+    <tr><td class="y">2012–14</td><td class="t">Jardim Ilusão</td><td class="r">Luiz · produção executiva<div class="o">Teatro · Festival de Curitiba 2014</div></td><td class="c"><span class="tag">Teatro</span></td></tr>
+    <tr><td class="y">2013</td><td class="t">Laudo 864</td><td class="r">José<div class="o">Média-metragem</div></td><td class="c"><span class="tag">Cinema</span></td></tr>
+    <tr><td class="y">2012</td><td class="t">Antebellum</td><td class="r">Fernando<div class="o">Curta · dir. Edu Diux e Andrei Alan</div></td><td class="c"><span class="tag">Cinema</span></td></tr>
+  </table>
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>06</b></div>
+</section>
+
+<!-- ======================= 7. PUBLICIDADE ======================= -->
+<section class="page">
+  <p class="kicker">Cena 06 · Marcas e publicidade</p>
+  <h2 class="title">Sua marca <em>no quadro certo</em></h2>
+  <div class="big-number"><b>60+</b><span>publicidades para<br>TV e internet</span></div>
+  <p class="lead" style="font-size:13pt">Um rosto de Netflix, Record e cinema que também dirige e produz. Danillo pode estrelar a sua campanha ou entregar a peça completa, do roteiro à finalização, pela MED Produções.</p>
+
+  <div class="formats">
+    <div class="format"><span class="n">01</span><h3>Comerciais</h3><p>Filmes para TV, cinema e digital com atuação de quem vive o set há mais de 15 anos.</p></div>
+    <div class="format"><span class="n">02</span><h3>Publi no Instagram</h3><p>Reels, Stories e posts com linguagem cinematográfica para a audiência de @danillofranccesco.</p></div>
+    <div class="format"><span class="n">03</span><h3>Embaixador de marca</h3><p>Parcerias de longo prazo para marcas de esporte, bem-estar, moda e lifestyle.</p></div>
+    <div class="format"><span class="n">04</span><h3>Eventos</h3><p>Presença, apresentação e ativações em lançamentos, feiras e festivais.</p></div>
+    <div class="format"><span class="n">05</span><h3>Institucional</h3><p>Filmes para empresas, prefeituras e órgãos públicos, com direção e produção próprias.</p></div>
+    <div class="format"><span class="n">06</span><h3>Impacto social</h3><p>Campanhas de conscientização sobre temas como a violência doméstica.</p></div>
+  </div>
+
+  <div class="whys">
+    <div class="why"><b>Ator + diretor + produtor</b><span>Uma conversa, uma equipe, a peça pronta.</span></div>
+    <div class="why"><b>Atleta de verdade</b><span>Futebol profissional e mais de 30 modalidades: artes marciais, esportes aquáticos, dança.</span></div>
+    <div class="why"><b>Pronto para o mundo</b><span>Inglês fluente, espanhol básico. Atende todo o Brasil.</span></div>
+  </div>
+
+  <div class="cta">
+    <p>Vamos colocar a sua<br>marca em cena?</p>
+    <span>med.producoes@hotmail.com<br>WhatsApp (11) 94800-0631</span>
+  </div>
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>07</b></div>
+</section>
+
+<!-- ======================= 8. FORMAÇÃO E IMPACTO SOCIAL ======================= -->
+<section class="page">
+  <p class="kicker">Cena 07 · Formação e impacto social</p>
+  <h2 class="title">Cinema que <em>chega a todos</em></h2>
+  <p class="lead" style="font-size:13pt">Além de atuar e dirigir, Danillo forma novos artistas e leva o cinema a quem nunca esteve diante de uma tela grande, valorizando a produção cultural do interior de Minas Gerais e São Paulo.</p>
+
+  <div class="social">
+    <figure><img src="../assets/social-mostra.jpg" alt=""><figcaption><h3>Mostras de cinema a céu aberto</h3><p>Sessões itinerantes de filmes e documentários nacionais em bairros afastados, para centenas de pessoas que nunca tinham ido ao cinema.</p></figcaption></figure>
+    <figure><img src="../assets/social-workshop.jpg" alt=""><figcaption><h3>Workshops de cinema</h3><p>Desde 2013 em São Paulo, Extrema, Vargem e Pedra Bela: produção, direção, atuação, fotografia, luz e arte, da ideia à finalização.</p></figcaption></figure>
+    <figure><img src="../assets/social-eu-nos-voce.jpg" alt=""><figcaption><h3>Produção cultural em Minas</h3><p>Filmes com elenco e equipe locais, temporadas de teatro e espetáculos de humor e infantis trazidos para Extrema.</p></figcaption></figure>
+  </div>
+
+  <div class="training">
+    <div>
+      <h3>Formação</h3>
+      <ul>
+        <li><b>Latin American Film Institute + New York Film Academy</b><br><span>Atuação e direção · 2012</span></li>
+        <li><b>Fátima Toledo</b> <span>· interpretação para cinema</span></li>
+        <li><b>Escola de Atores Wolf Maya</b> <span>· interpretação para TV</span></li>
+        <li><b>Instituto Stanislavsky</b> <span>· módulos I e II e festival internacional</span></li>
+        <li><b>IAS Atores</b> <span>· e workshops internacionais</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Mestres e técnicas</h3>
+      <p class="muted" style="font-size:8.4pt">Workshops internacionais com Tristan Aronovich, David Bridel, Eric Sherman e Marjo-Riikka Mäkelä. Domínio de técnicas que tornam suas oficinas completas para quem quer atuar e dirigir.</p>
+      <div class="chips"><span class="tag">Meisner</span><span class="tag">Stella Adler</span><span class="tag">Chekhov</span><span class="tag">Stanislavsky</span></div>
+      <div class="cta" style="margin-top:8mm; padding:5mm 6mm">
+        <p style="font-size:12.5pt">Um projeto para a sua cidade, escola ou secretaria?</p>
+      </div>
+    </div>
+  </div>
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>08</b></div>
+</section>
+
+<!-- ======================= 9. FICHA TÉCNICA ======================= -->
+<section class="page">
+  <p class="kicker">Cena 08 · Para produtores de elenco</p>
+  <h2 class="title">Ficha <em>técnica</em></h2>
+  <div class="slate">
+    <div class="slate-top"></div>
+    <div class="slate-body">
+      <div class="cell"><small>Nome artístico</small><b>Danillo Franccesco</b></div>
+      <div class="cell"><small>Nascimento</small><b>15/09/1989 · Extrema (MG)</b></div>
+      <div class="cell"><small>Base</small><b>São Paulo · Rio de Janeiro</b></div>
+      <div class="cell"><small>Altura</small><b>1,86 m</b></div>
+      <div class="cell"><small>Peso</small><b>88 kg</b></div>
+      <div class="cell"><small>Biotipo</small><b>Atlético</b></div>
+      <div class="cell"><small>Olhos</small><b>Castanhos</b></div>
+      <div class="cell"><small>Cabelo</small><b>Castanho, curto · barba</b></div>
+      <div class="cell"><small>Manequim · calçado</small><b>44 · 43</b></div>
+      <div class="cell wide"><small>Idiomas</small><b>Português nativo · Inglês fluente · Espanhol básico</b></div>
+      <div class="cell wide"><small>Habilidades</small><b>Futebol profissional · artes marciais · esportes aquáticos · dança · direção e filmmaking</b></div>
+      <div class="cell wide"><small>Agência</small><b>Nossa Sra. do Casting</b></div>
+    </div>
+  </div>
+  <div class="bts">
+    <figure><img src="img/filho-de-deus-close.jpg" alt=""><figcaption>A Vida de Jó</figcaption></figure>
+    <figure><img src="img/bastidores.jpg" alt=""><figcaption>Bastidores</figcaption></figure>
+    <figure><img src="img/retrato-pb.jpg" alt="" style="object-position: 62% 18%"><figcaption>Ensaio</figcaption></figure>
+  </div>
+  <div class="run"><span class="mark">DF</span><span>Danillo Franccesco · Portfólio</span><b>09</b></div>
+</section>
+
+<!-- ======================= 10. CONTATO ======================= -->
+<section class="page" style="background: radial-gradient(ellipse 60% 40% at 50% 30%, rgba(212,174,58,.10), transparent 70%), var(--bg);">
+  <div class="end">
+    <p class="kicker">Créditos finais</p>
+    <h2 class="title" style="font-size:58pt">Contato</h2>
+    <dl class="credits">
+      <div class="credit"><dt>Atuação</dt><dd>Danillo Franccesco</dd></div>
+      <div class="credit"><dt>Direção</dt><dd>Danillo Franccesco</dd></div>
+      <div class="credit"><dt>Produção</dt><dd>MED Produções</dd></div>
+      <div class="credit"><dt>Agência</dt><dd>Nossa Sra. do Casting</dd></div>
+      <div class="credit"><dt>E-mail</dt><dd>med.producoes@hotmail.com</dd></div>
+      <div class="credit"><dt>WhatsApp</dt><dd>(11) 94800-0631</dd></div>
+      <div class="credit"><dt>Instagram</dt><dd>@danillofranccesco</dd></div>
+    </dl>
+    <div class="qr-row">
+      <div class="qr"><img src="img/qr-site.svg" alt=""></div>
+      <div><b>Trailers, vídeos e mais</b><span>Aponte a câmera para o código<br>e acesse o site oficial.</span></div>
+    </div>
+    <p class="fin">Fim.</p>
+  </div>
+  <div class="dev"><img src="../assets/extrema-consultoria.svg" alt="">Desenvolvido por Extrema Consultoria</div>
+</section>
+
+</body>
+</html>
