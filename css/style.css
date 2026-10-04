@@ -440,7 +440,7 @@ section { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 .laurel svg.flip { transform: scaleX(-1); }
 .laurel div { text-align: center; line-height: 1.1; padding: 0 4px; }
 .laurel b { display: block; font-family: var(--display); font-weight: 400; font-size: 44px; }
-.laurel small { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--text); }
+.laurel small { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--text); line-height: 1.5; display: block; padding: 0 2px; }
 
 /* ---------- Vídeos ---------- */
 .videos { background: var(--bg-2); }
@@ -491,6 +491,25 @@ section { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
   background: linear-gradient(90deg, var(--gold-soft), transparent);
 }
 .ads-cta p { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 30px); margin: 0; line-height: 1.25; }
+
+/* ---------- Formação e impacto social ---------- */
+.social-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(30px, 6vw, 80px); align-items: end; margin-bottom: 48px; }
+.social-head p { color: var(--muted); margin: 0; }
+.social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.social-card { border: 1px solid var(--line); background: var(--bg-2); overflow: hidden; display: flex; flex-direction: column; }
+.social-card img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; filter: grayscale(.3); transition: filter .5s; }
+.social-card:hover img { filter: none; }
+.social-card div { padding: 22px 22px 26px; }
+.social-card h3 { font-family: var(--display); font-weight: 400; font-size: 28px; line-height: 1; margin: 0 0 10px; letter-spacing: .02em; }
+.social-card p { margin: 0; color: var(--muted); font-size: 15px; }
+.training {
+  display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center;
+  margin: 44px 0; padding: 30px clamp(22px, 4vw, 40px); border-left: 2px solid var(--gold); background: var(--gold-soft);
+}
+.training h3 { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 26px; margin: 0 0 8px; color: var(--gold); }
+.training p { margin: 0; color: var(--text); font-size: 15px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; max-width: 260px; justify-content: flex-end; }
+.tags li { padding: 6px 12px; border: 1px solid var(--gold); border-radius: 999px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
 
 /* ---------- Instagram ---------- */
 .insta { background: var(--bg-2); text-align: center; }
@@ -672,6 +691,10 @@ section { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
   .feature-poster { justify-self: start; }
   .ads-grid, .video-grid { grid-template-columns: 1fr 1fr; }
   .ads-why { grid-template-columns: 1fr; }
+  .social-head { grid-template-columns: 1fr; }
+  .social-grid { grid-template-columns: 1fr 1fr; }
+  .training { grid-template-columns: 1fr; }
+  .tags { justify-content: flex-start; max-width: none; }
   .stats { grid-template-columns: 1fr 1fr; }
   .stat:nth-child(3) { border-left: 0; padding-left: 0; }
   .hero-meta { display: none; }
@@ -690,7 +713,7 @@ section { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
   .nav.menu-open .nav-toggle span:last-child { transform: translateY(-4px) rotate(-45deg); }
 }
 @media (max-width: 760px) {
-  .ads-grid, .video-grid { grid-template-columns: 1fr; }
+  .ads-grid, .video-grid, .social-grid { grid-template-columns: 1fr; }
   .card { min-height: 250px; }
   .card-title { padding-top: 24px; }
   .slate-body { grid-template-columns: 1fr 1fr; }

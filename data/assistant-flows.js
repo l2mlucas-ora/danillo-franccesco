@@ -94,12 +94,12 @@ window.ASSISTANT = {
         governo: {
           title: "Governo & Institucional",
           steps: [
-            { say: "Danillo já produziu documentários e um longa sobre violência doméstica premiado no Brasil e no exterior. Temas sociais são parte do trabalho dele." },
+            { say: "Danillo realiza mostras de cinema a céu aberto, workshops de cinema desde 2013 e dirigiu Não Peça Desculpas, longa sobre violência contra a mulher exibido em festivais no Brasil e no exterior." },
             { ask: "Qual órgão, secretaria ou município?", key: "Órgão", input: "Ex.: Prefeitura de Extrema — Secretaria de Cultura" },
             {
               ask: "Qual o tipo de projeto?",
               key: "Projeto",
-              options: ["Campanha educativa", "Documentário", "Filme institucional", "Evento / palestra", "Exibição de filme + debate", "Lei de incentivo / edital"]
+              options: ["Campanha educativa", "Documentário", "Filme institucional", "Mostra de cinema a céu aberto", "Workshop / oficina de cinema", "Exibição de filme + debate", "Lei de incentivo / edital"]
             },
             { ask: "Prazo previsto?", key: "Prazo", options: ["Até 1 mês", "1 a 3 meses", "Acima de 3 meses", "A definir"] },
             { ask: "Seu nome e cargo?", key: "Contato", input: "Nome — cargo" }
@@ -142,7 +142,7 @@ window.ASSISTANT = {
           ],
           branches: {
             "Faz publi?": [
-              { say: "Sim! Comerciais, publis no Instagram, eventos e embaixador de marca. E como diretor e produtor (MED Produções), pode entregar a peça pronta." },
+              { say: "Sim! São mais de 60 publicidades para TV e internet: comerciais, publis no Instagram, eventos e embaixador de marca. E como diretor e produtor (MED Produções), pode entregar a peça pronta." },
               { goto: "publicidade", label: "Pedir orçamento de publicidade" }
             ],
             "Atende fora de SP/RJ?": [
@@ -241,12 +241,12 @@ window.ASSISTANT = {
         governo: {
           title: "Government & Corporate",
           steps: [
-            { say: "Danillo has produced documentaries and a feature film about domestic violence, awarded in Brazil and abroad. Social issues are part of his work." },
+            { say: "Danillo runs open-air film screenings, has taught film workshops since 2013 and directed Não Peça Desculpas, a feature about violence against women screened at festivals in Brazil and abroad." },
             { ask: "Which agency, department or city?", key: "Organization", input: "E.g. City of Extrema — Culture Department" },
             {
               ask: "What kind of project?",
               key: "Project",
-              options: ["Awareness campaign", "Documentary", "Corporate film", "Event / talk", "Film screening + debate", "Grant / incentive law"]
+              options: ["Awareness campaign", "Documentary", "Corporate film", "Open-air film screening", "Film workshop", "Film screening + debate", "Grant / incentive law"]
             },
             { ask: "Expected timeline?", key: "Timeline", options: ["Within 1 month", "1 to 3 months", "More than 3 months", "To be defined"] },
             { ask: "Your name and position?", key: "Contact", input: "Name — position" }
@@ -289,7 +289,7 @@ window.ASSISTANT = {
           ],
           branches: {
             "Do you do sponsored content?": [
-              { say: "Yes! Commercials, Instagram content, events and brand ambassadorships. And as a director and producer (MED Produções), he can deliver the finished piece." },
+              { say: "Yes! More than 60 commercials for TV and the web: commercials, Instagram content, events and brand ambassadorships. And as a director and producer (MED Produções), he can deliver the finished piece." },
               { goto: "publicidade", label: "Request an advertising quote" }
             ],
             "Do you work outside SP/RJ?": [
@@ -388,12 +388,12 @@ window.ASSISTANT = {
         governo: {
           title: "Gobierno e Institucional",
           steps: [
-            { say: "Danillo ya produjo documentales y un largometraje sobre violencia doméstica premiado en Brasil y en el exterior. Los temas sociales son parte de su trabajo." },
+            { say: "Danillo realiza muestras de cine al aire libre, dicta talleres de cine desde 2013 y dirigió Não Peça Desculpas, largometraje sobre la violencia contra la mujer exhibido en festivales en Brasil y en el exterior." },
             { ask: "¿Qué organismo, secretaría o municipio?", key: "Organismo", input: "Ej.: Municipalidad de Extrema — Secretaría de Cultura" },
             {
               ask: "¿Qué tipo de proyecto?",
               key: "Proyecto",
-              options: ["Campaña educativa", "Documental", "Película institucional", "Evento / charla", "Proyección + debate", "Ley de incentivo / convocatoria"]
+              options: ["Campaña educativa", "Documental", "Película institucional", "Muestra de cine al aire libre", "Taller de cine", "Proyección + debate", "Ley de incentivo / convocatoria"]
             },
             { ask: "¿Plazo previsto?", key: "Plazo", options: ["Hasta 1 mes", "1 a 3 meses", "Más de 3 meses", "A definir"] },
             { ask: "¿Tu nombre y cargo?", key: "Contacto", input: "Nombre — cargo" }
@@ -436,7 +436,7 @@ window.ASSISTANT = {
           ],
           branches: {
             "¿Hace publicidad?": [
-              { say: "¡Sí! Comerciales, publis en Instagram, eventos y embajador de marca. Y como director y productor (MED Produções), puede entregar la pieza lista." },
+              { say: "¡Sí! Más de 60 publicidades para TV e internet: comerciales, publis en Instagram, eventos y embajador de marca. Y como director y productor (MED Produções), puede entregar la pieza lista." },
               { goto: "publicidade", label: "Pedir presupuesto de publicidad" }
             ],
             "¿Trabaja fuera de SP/RJ?": [

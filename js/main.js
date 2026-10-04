@@ -174,6 +174,10 @@
     if (lastFocus) lastFocus.focus();
   }
   closeBtn.addEventListener("click", closeVideo);
+  /* Qualquer botão com data-video="<id do YouTube>" abre o trailer no modal */
+  $$("[data-video]").forEach(function (b) {
+    b.addEventListener("click", function () { openVideo(b.dataset.video, b.dataset.videoTitle || "Trailer", b); });
+  });
   modal.addEventListener("click", function (e) { if (e.target === modal) closeVideo(); });
   document.addEventListener("keydown", function (e) {
     if (!modal.classList.contains("open")) return;

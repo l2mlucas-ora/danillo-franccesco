@@ -50,4 +50,6 @@ Depois abra http://localhost:5173.
 Cada `git push` publica uma versão nova automaticamente. O arquivo `_headers` define cache e cabeçalhos de segurança na Cloudflare.
 
 ## Fontes das informações
-IMDb (nm10563514), Elenco Digital, AdoroCinema e imprensa (Eu, Rio!, ArteCult, O Regional Sul de Minas). Revise e atualize os dados com o Danillo antes de divulgar.
+Portfólio em PDF enviado pelo Danillo (fonte principal), IMDb (nm10563514), Elenco Digital, AdoroCinema e imprensa (Eu, Rio!, ArteCult, O Regional Sul de Minas).
+
+**Pendente com o Danillo:** confirmar o número de prêmios de *Não Peça Desculpas* (o PDF fala em 7 indicações; o Elenco Digital, em 11 prêmios). Até lá o site diz "premiado e indicado em festivais nacionais e internacionais", sem número. Pedir também os cartazes originais em alta resolução (os de `assets/poster-*.jpg` vieram do PDF comprimido).
